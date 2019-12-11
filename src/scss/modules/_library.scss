@@ -1,0 +1,89 @@
+/**
+Copyright 2019 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
+
+$unit: 8px;
+$library: '.library';
+
+
+#{$library} {
+  background-color: $library-bg;
+  bottom: 0;
+  box-sizing: border-box;
+  box-shadow: 0 -2px 16px rgba(0, 0, 0, .24);
+  display: flex;
+  height: 122px;
+  left: 0;
+  opacity: 1;
+  padding: ($unit * 2) $unit;
+  position: fixed;
+  right: 0;
+  transition: 0.2s all;
+  z-index: $z-max-1;
+
+  &.hidden {
+    bottom: -122px;
+  }
+
+  #{$library}-handle {
+    background-color: $library-bg;
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .24);
+    border: 1px solid darken($library-bg, 20%);
+    display: none;
+    height: 10px;
+    left: 50%;
+    margin-left: -26px;
+    position: absolute;
+    top: -8px;
+    width: 52px;
+  }
+
+  .ssml-block {
+    background: $library-card-bg;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .12), 0 2px 2px rgba(0, 0, 0, .24);
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: $library-card-color;
+    cursor: grab;
+    font-size: 11px;
+    flex: 1;
+    margin: 0 $unit;
+    padding: ($unit * 8) ($unit * 2) ($unit * 2) ($unit * 2);
+    text-align: center;
+    user-select: none;
+    transition: all .3s;
+    position: relative;
+
+    .material-icons {
+      color: $library-card-color;
+      display: block;
+      top: $unit * 3;
+      left: 50%;
+      margin-left: -12px;
+      position: absolute;
+      z-index: 1;
+    }
+
+    &:hover, &:active {
+      box-shadow:  0 0 4px rgba(0, 0, 0, .12), 0 4px 4px rgba(0, 0, 0, .24);
+      color: $library-card-color;
+
+      .material-icons {
+        color: $library-card-color;
+      }
+    }
+  }
+}

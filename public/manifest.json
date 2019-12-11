@@ -1,0 +1,11 @@
+{
+  "name": "nightingale",
+  "short_name": "nightingale",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [{
+    "src": "images/nightingale.png",
+    "sizes": "64x64",
+    "type": "image/png"
+  }]
+}

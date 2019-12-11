@@ -1,0 +1,20 @@
+{
+  "name": "nightingale-backend",
+  "description": "Cloud Function for Firebase",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~8.8.0",
+    "firebase-functions": "^3.3.0",
+    "@google-cloud/text-to-speech": "^2.0.2"
+  },
+  "engines": {
+    "node": "10"
+  },
+  "private": true
+}

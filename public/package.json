@@ -1,0 +1,15 @@
+{
+  "name": "nightingale-prod",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "private": true,
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "web-animations-js": "^2.3.1"
+  },
+  "author": "Google"
+}

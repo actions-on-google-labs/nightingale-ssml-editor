@@ -1,0 +1,12 @@
+node_modules/
+.firebase/
+.secrets
+yarn.lock
+package-lock.json
+.firebaserc
+.DS_Store
+# Compiled and moved files
+public/app.js
+public/js/web-animations-next-lite.min.js
+public/js/webcomponents-loader.js
+src/scss/base/_reset.scss

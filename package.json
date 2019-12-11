@@ -1,0 +1,44 @@
+{
+  "name": "nightingale",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "deploy": "firebase deploy --only functions",
+    "start": "npm run cp-3p && webpack-dev-server --open && webpack --mode development --env.development --config webpack.config.js",
+    "build": "npm run cp-3p && webpack --mode production --env.production --config webpack.config.js",
+    "cp-3p": "cp third_party/scss/*.scss src/scss/base/ && mkdir -p public/js/ && cp third_party/js/*.js public/js/"
+  },
+  "dependencies": {
+    "@polymer/app-layout": "^3.0.0-pre.21",
+    "@polymer/iron-icons": "^3.0.0-pre.21",
+    "@polymer/paper-button": "^3.0.0-pre.21",
+    "@polymer/paper-card": "^3.0.0-pre.21",
+    "@polymer/paper-dialog": "^3.0.0-pre.21",
+    "@polymer/paper-dropdown-menu": "^3.0.1",
+    "@polymer/paper-icon-button": "^3.0.0-pre.21",
+    "@polymer/paper-item": "^3.0.0-pre.21",
+    "@polymer/paper-listbox": "^3.0.0-pre.21",
+    "@polymer/paper-slider": "^3.0.1",
+    "@polymer/paper-toast": "^3.0.0-pre.21",
+    "@polymer/paper-toolbar": "^3.0.0-pre.25",
+    "@polymer/polymer": "^3.0.0",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
+    "sass": "^1.17.3",
+    "web-animations-js": "^2.3.1"
+  },
+  "devDependencies": {
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "css-loader": "^2.1.1",
+    "node-sass": "^4.11.0",
+    "polymer-cli": "^1.8.0",
+    "polymer-webpack-loader": "^2.0.3",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "wct-browser-legacy": "^1.0.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  }
+}

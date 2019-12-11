@@ -1,0 +1,136 @@
+/**
+Copyright 2019 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
+
+/*
+* Color Values
+*
+* Based off of the Material Design Color Palette
+* www.google.com/design/spec/style/color.html#color-color-palette
+*/
+
+//BASIC
+$white: #FFF;
+$black: #000;
+
+//AMBER
+$amber-50: #FFF8E1;
+$amber-100: #FFECB3;
+$amber-200: #FFE082;
+$amber-300: #FFD54F;
+$amber-400: #FFCA28;
+$amber-500: #FFC107;
+$amber-600: #FFB300;
+$amber-700: #FFA000;
+$amber-800: #FF8F00;
+$amber-900: #FF6F00;
+
+// BLUE GREY
+$blue-grey-50: #ECEFF1;
+$blue-grey-100: #CFD8DC;
+$blue-grey-200: #B0BEC5;
+$blue-grey-300: #90A4AE;
+$blue-grey-400: #78909C;
+$blue-grey-500: #607D8B;
+$blue-grey-600: #546E7A;
+$blue-grey-700: #455A64;
+$blue-grey-800: #37474F;
+$blue-grey-900: #263238;
+
+// CYAN
+$cyan-50: #E0F7FA;
+$cyan-100: #B2EBF2;
+$cyan-200: #80DEEA;
+$cyan-300: #4DD0E1;
+$cyan-400: #26C6DA;
+$cyan-500: #00BCD4;
+$cyan-600: #00ACC1;
+$cyan-700: #0097A7;
+$cyan-800: #00838F;
+$cyan-900: #006064;
+$cyan-A100: #84FFFF;
+$cyan-A200: #18FFFF;
+$cyan-A400: #00E5FF;
+$cyan-A700: #00B8D4;
+
+// LIGHT BLUE
+$light-blue-50: #E1F5FE;
+$light-blue-100: #B3E5FC;
+$light-blue-200: #81D4FA;
+$light-blue-300: #4FC3F7;
+$light-blue-400: #29B6F6;
+$light-blue-500: #03A9F4;
+$light-blue-600: #039BE5;
+$light-blue-700: #0288D1;
+$light-blue-800: #0277BD;
+$light-blue-900: #01579C;
+
+// PINK
+$pink-50: #FCE4EC;
+$pink-100: #F8BBD0;
+$pink-200: #F48FB1;
+$pink-300: #F06292;
+$pink-400: #EC407A;
+$pink-500: #E91E63;
+$pink-600: #D81B60;
+$pink-700: #C2185B;
+$pink-800: #AD1457;
+$pink-900: #880E4F;
+$pink-A400: #F50057;
+
+// PURPLE
+$purple-50: #F3E5F5;
+$purple-100: #E1BEE7;
+$purple-200: #CE93D8;
+$purple-300: #BA68C8;
+$purple-400: #AB47BC;
+$purple-500: #9C27B0;
+$purple-600: #8E24AA;
+$purple-700: #7B1FA2;
+$purple-800: #6A1B9A;
+$purple-900: #4A148C;
+$purple-A100: #EA80FC;
+$purple-A200: #E040FB;
+$purple-A400: #D500F9;
+$purple-A700: #AA00FF;
+
+// RED
+$red-50: #FFEBEE;
+$red-100: #FFCDD2;
+$red-200: #EF9A9A;
+$red-300: #E57373;
+$red-400: #EF5350;
+$red-500: #F44336;
+$red-600: #E53935;
+$red-700: #D32F2F;
+$red-800: #C62828;
+$red-900: #B71C1C;
+$red-A100: #FF8A80;
+$red-A200: #FF5252;
+$red-A400: #FF1744;
+$red-A700: #D50000;
+
+//TEAL
+$teal-50: #E0F2F1;
+$teal-100: #B2DFDB;
+$teal-200: #80CBC4;
+$teal-300: #4DB6AC;
+$teal-400: #26A69A;
+$teal-500: #009688;
+$teal-600: #00897B;
+$teal-700: #00796B;
+$teal-800: #00695C;
+$teal-900: #004D40;
+$teal-A700: #00BFA5;

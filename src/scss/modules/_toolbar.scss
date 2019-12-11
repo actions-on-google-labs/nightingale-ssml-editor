@@ -1,0 +1,148 @@
+/**
+Copyright 2019 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
+
+
+ app-header {
+  background: $app-header-bg;
+  box-sizing: border-box;
+  color: $app-header-text;
+  display: block;
+  height: 56px;
+  margin:0;
+  width: 100%;
+}
+
+app-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 56px;
+  z-index: $z-max-2;
+
+  .toolbar-title {
+    display: flex;
+    flex: 3;
+  }
+
+  h1 {
+    align-self: flex-start;
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0;
+    line-height: 56px;
+    padding-left: $unit * 5;
+    position: relative;
+
+    i {
+      position: absolute;
+      left: 0;
+      top: 12px;
+      z-index: 1;
+    }
+
+    em {
+      position: absolute;
+      bottom: -20px;
+      left: 40px;
+      z-index: 1;
+      font-size: 10px;
+      font-style: normal;
+    }
+  }
+
+  .play-head {
+    background: $playhead-bg;
+    border-radius: 2px;
+    border: none;
+    box-sizing: border-box;
+    color: $playhead-text;
+    height: $unit * 4;
+    margin: 12px ($unit * 4);
+    padding: 0 ($unit * 4) 0 ($unit * 5);
+    position: relative;
+
+    paper-button {
+      border: none;
+      margin: 0;
+      padding: 0;
+      width: $unit * 3;
+      min-width: auto;
+      position: absolute;
+      left: $unit;
+      top: 4px;
+    }
+
+    .play-button {
+      &.is-hidden {
+        display: none;
+      }
+    }
+
+    .close-button {
+      &.is-hidden {
+        display: none;
+      }
+    }
+
+    .time-readout {
+      font-size: 14px;
+      margin: 0;
+      line-height: $unit * 4;
+    }
+  }
+
+  paper-dropdown-menu {
+    margin-right: $unit * 2;
+    color: $app-header-text;
+
+  }
+
+  #paper-input-label-1 {
+    color: $app-header-text;
+  }
+
+
+
+  .news-button {
+    color: $news-button-bg;
+    box-shadow: none;
+    align-self: flex-end;
+    font-size: $unit * 4;
+    display: none;
+    padding: 0;
+    width: auto;
+    min-width: auto;
+    margin: ($unit * 3) ($unit * 2);
+
+    i {
+      font-size: $unit * 4;
+    }
+  }
+
+  .export-button {
+    align-self: flex-end;
+    border: none;
+    border-radius: 4px;
+    color: $button-primary-color;
+    font-size: 10pt;
+    margin: $unit;
+    font-weight: bold;
+    line-height: $unit * 4;
+    text-transform: uppercase;
+    background-color: $button-primary-bg;
+    padding: 0 ($unit * 3);
+  }
+}
