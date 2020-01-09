@@ -7,7 +7,8 @@
     "deploy": "firebase deploy --only functions",
     "start": "npm run cp-3p && webpack-dev-server --open && webpack --mode development --env.development --config webpack.config.js",
     "build": "npm run cp-3p && webpack --mode production --env.production --config webpack.config.js",
-    "cp-3p": "cp third_party/scss/*.scss src/scss/base/ && mkdir -p public/js/ && cp third_party/js/*.js public/js/"
+    "cp-3p": "cp third_party/scss/*.scss src/scss/base/ && mkdir -p public/js/ && cp third_party/js/*.js public/js/",
+    "lint": "eslint ./src"
   },
   "dependencies": {
     "@polymer/app-layout": "^3.0.0-pre.21",
@@ -31,6 +32,9 @@
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "css-loader": "^2.1.1",
+    "eslint": "^6.7.2",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-polymer": "^0.4.0",
     "node-sass": "^4.11.0",
     "polymer-cli": "^1.8.0",
     "polymer-webpack-loader": "^2.0.3",

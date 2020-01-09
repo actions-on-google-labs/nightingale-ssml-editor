@@ -1,0 +1,15 @@
+{
+    "extends": ["eslint:recommended", "google"],
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "rules": {
+        "no-undef": "off",
+        "valid-jsdoc": "off",
+        "spaced-comment": "off"
+    }
+}

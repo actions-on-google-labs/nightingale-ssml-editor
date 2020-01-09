@@ -14,21 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-import { html, PolymerElement } from "../../node_modules/@polymer/polymer/polymer-element.js";
-import {appToolbar} from "@polymer/app-layout/app-toolbar/app-toolbar.js";
-import {paperCard} from "@polymer/paper-card/paper-card.js";
-import {ironIcons} from "@polymer/iron-icons/iron-icons.js";
-import {paperDropdownMenu} from "@polymer/paper-dropdown-menu/paper-dropdown-menu.js";
-import {paperMenuButton} from "@polymer/paper-menu-button/paper-menu-button.js";
-import {paperListbox} from "@polymer/paper-listbox/paper-listbox.js";
-import {paperItem} from "@polymer/paper-item/paper-item.js";
-import {paperItemBody} from "@polymer/paper-item/paper-item-body.js";
-import {paperButton} from "@polymer/paper-button/paper-button.js";
-import {paperToast} from "@polymer/paper-toast/paper-toast.js";
-import {paperDialog} from "@polymer/paper-dialog/paper-dialog.js";
-import {paperToolbar} from "@polymer/paper-toolbar/paper-toolbar.js";
-import {paperIconButton} from "@polymer/paper-icon-button/paper-icon-button.js";
-import {paperSlider} from "@polymer/paper-slider/paper-slider.js";
+import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 
 /**
  * @customElement
@@ -174,15 +160,15 @@ class SsmlBlock extends PolymerElement {
         type: Array,
         value: [{
           sound: 'Alarm Clock',
-          url: 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg'
+          url: 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg',
         }, {
           sound: 'Assorted Computer Sounds',
-          url: 'https://actions.google.com/sounds/v1/alarms/assorted_computer_sounds.ogg'
+          url: 'https://actions.google.com/sounds/v1/alarms/assorted_computer_sounds.ogg',
         }, {
           sound: 'Beep Short',
-          url: 'https://actions.google.com/sounds/v1/alarms/beep_short.ogg'
-        }]
-      }
+          url: 'https://actions.google.com/sounds/v1/alarms/beep_short.ogg',
+        }],
+      },
     };
   }
 
@@ -200,22 +186,70 @@ class SsmlBlock extends PolymerElement {
     let html = '';
 
     switch (this.type) {
-      case 'p': html = `<span class="audio-description"><img src="/images/mic.png"/>${this.data.text}</span>`; break;
-      case 'emphasis': html = `<strong class="audio-description"><img src="/images/speaker.png"/>${this.data.text}</strong>`;break;
-      case 'sub': html = `<span class="audio-description"><img src="/images/speech.png"/>${this.data.alias} (${this.data.text})</span>`; break;
-      case 'say-as': html = `<span class="audio-description"><img src="/images/say.png"/>${this.data.text} (say as ${this.data['interpret-as']})</span>`; break;
-      case 'say-as-date': html = `<span class="audio-description"><img src="/images/date.png"/>${this.data.text}</span>`; break;
-      case 'say-as-time': html = `<span class="audio-description"><img src="/images/time.png"/>${this.data.text}</span>`; break;
-      case 'prosody': html = `<span class="audio-description"><img src="/images/dynamic.png"/>${this.data.text}</span>`; break;
-      case 'audio': html = `<strong class="audio-description"><img src="/images/audio.png"/> ${this.data.alt}</strong>`; break;
-      case 'audio-library': html = `<strong class="audio-description"><img src="/images/library.png"/> ${this.data.alt}</strong>`; break;
-      default: case 'p': html = `<span class="audio-description">${this.data.text}</span>`;
+      case 'p':
+        html = `<span class="audio-description">
+          <img src="/images/mic.png" />
+          ${this.data.text}
+          </span>`;
+        break;
+      case 'emphasis':
+        html = `<strong class="audio-description">
+          <img src="/images/speaker.png" />
+          ${this.data.text}
+          </strong>`;
+        break;
+      case 'sub':
+        html = `<span class="audio-description">
+          <img src="/images/speech.png" />
+          ${this.data.alias} (${this.data.text})
+          </span>`;
+        break;
+      case 'say-as':
+        html = `<span class="audio-description">
+          <img src="/images/say.png"/>
+          ${this.data.text}
+          (say as ${this.data['interpret-as']})
+          </span>`;
+        break;
+      case 'say-as-date':
+        html = `<span class="audio-description">
+          <img src="/images/date.png"/>
+          ${this.data.text}
+          </span>`;
+        break;
+      case 'say-as-time':
+        html = `<span class="audio-description">
+          <img src="/images/time.png" />
+          ${this.data.text}
+          </span>`;
+        break;
+      case 'prosody':
+        html = `<span class="audio-description">
+          <img src="/images/dynamic.png" />
+          ${this.data.text}
+          </span>`;
+        break;
+      case 'audio':
+        html = `<strong class="audio-description">
+          <img src="/images/audio.png" />
+          ${this.data.alt}
+          </strong>`;
+        break;
+      case 'audio-library':
+        html = `<strong class="audio-description">
+          <img src="/images/library.png" />
+          ${this.data.alt}
+          </strong>`;
+        break;
+      default:
+        html = `<span class="audio-description">${this.data.text}</span>`;
     }
 
     // ADD OPTIONS BUTTONS
     html = html + `
       <div class="audio-options" part="audio-options">
-        <button class="audio-button edit-button" id="btnEdit" data-index="${this.index}">
+        <button class="audio-button edit-button" id="btnEdit"
+            data-index="${this.index}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
         </button>
 
@@ -227,7 +261,7 @@ class SsmlBlock extends PolymerElement {
   }
 
   renderHtml() {
-    if(this.$ && this.$.blockDiv) {
+    if (this.$ && this.$.blockDiv) {
       this.$.blockDiv.innerHTML = this.getHtml();
     }
   }
@@ -236,17 +270,50 @@ class SsmlBlock extends PolymerElement {
     let ssml = '';
 
     switch (this.type) {
-      case 'p': ssml = `<p>${this.data.text}</p>`; break;
-      case 'emphasis': ssml = `<emphasis level="${this.data.level}">${this.data.text}</emphasis>`; break;
-      case 'sub': ssml = `<sub alias="${this.data.alias}">${this.data.text}</sub>`; break;
-      case 'prosody': ssml = `<prosody rate="${this.data.rate}" pitch="${this.data.pitch}">${this.data.text}</prosody>`; break;
-      case 'say-as': ssml = `<say-as interpret-as="${this.data['interpret-as']}">${this.data.text}</say-as>`; break;
-      case 'say-as-date': ssml =  `<say-as interpret-as="date" format="${this.data.format}" detail="${this.data.detail}">${this.data.text}</say-as>`; break;
-      case 'say-as-time': ssml =  `<say-as interpret-as="time" format="${this.data.format}" detail="${this.data.detail}">${this.data.text}</say-as>`; break;
-      case 'audio': `<audio src="${this.data.src}" ${this.data.clipBegin ? `clipBegin="${this.data.clipBegin}s"` : ''} ${this.data.clipEnd ? `clipEnd="${this.data.clipEnd}s"` : ''}>${this.data.alt}</audio>`; break;
-      case 'audio-library': ssml = `<audio src="${this.data.src}" ${this.data.clipBegin ? `clipBegin="${this.data.clipBegin}s"` : ''} ${this.data.clipEnd ? `clipEnd="${this.data.clipEnd}s"` : ''}>${this.data.alt}</audio>`; break;
-      case 'break': ssml = `<break time="${this.data.time}s" />`; break;
-      default: ssml = `<p>${this.data.text}</p>`;
+      case 'p':
+        ssml = `<p>${this.data.text}</p>`;
+        break;
+      case 'emphasis':
+        ssml = `<emphasis level="${this.data.level}">` +
+          `${this.data.text}</emphasis>`;
+        break;
+      case 'sub':
+        ssml = `<sub alias="${this.data.alias}">` +
+          `${this.data.text}</sub>`;
+        break;
+      case 'prosody':
+        ssml = `<prosody rate="${this.data.rate}" pitch="${this.data.pitch}">` +
+          `${this.data.text}</prosody>`;
+        break;
+      case 'say-as':
+        ssml = `<say-as interpret-as="${this.data['interpret-as']}">` +
+          `${this.data.text}</say-as>`;
+        break;
+      case 'say-as-date':
+        ssml = `<say-as interpret-as="date" format="${this.data.format}" ` +
+          `detail="${this.data.detail}">${this.data.text}</say-as>`;
+        break;
+      case 'say-as-time':
+        ssml = `<say-as interpret-as="time" format="${this.data.format}" ` +
+          `detail="${this.data.detail}">${this.data.text}</say-as>`;
+        break;
+      case 'audio':
+        ssml = `<audio src="${this.data.src}" ` +
+          (this.data.clipBegin ? `clipBegin="${this.data.clipBegin}s"` : '') +
+          (this.data.clipEnd ? `clipEnd="${this.data.clipEnd}s"` : '') +
+          `>${this.data.alt}</audio>`;
+        break;
+      case 'audio-library':
+        ssml = `<audio src="${this.data.src}" ` +
+          (this.data.clipBegin ? `clipBegin="${this.data.clipBegin}s"` : '') +
+          (this.data.clipEnd ? `clipEnd="${this.data.clipEnd}s"` : '') +
+          `>${this.data.alt}</audio>`;
+        break;
+      case 'break':
+        ssml = `<break time="${this.data.time}s" />`;
+        break;
+      default:
+        ssml = `<p>${this.data.text}</p>`;
     }
 
     return ssml;
@@ -256,39 +323,49 @@ class SsmlBlock extends PolymerElement {
     let wrappedSsml;
 
     switch (this.type) {
-      case 'p': wrappedSsml = `<speak>${this.getSsml()}</speak>`; break;
-      case 'emphasis': wrappedSsml = `<speak>${this.getSsml()}</speak>`; break;
-      case 'sub': wrappedSsml = `<speak>${this.getSsml()}</speak>`; break;
-      case 'prosody': wrappedSsml = `<speak>${this.getSsml()}</speak>`; break;
-      case 'say-as': wrappedSsml = `<speak>${this.getSsml()}</speak>`; break;
-      case 'say-as-date': wrappedSsml = `<speak>${this.getSsml()}</speak>`; break;
-      case 'say-as-time': wrappedSsml = `<speak>${this.getSsml()}</speak>`; break;
-      case 'audio': wrappedSsml = `<audio src="${this.data.src}"${this.data.clipBegin ? `clipBegin="${this.data.clipBegin}s"` : ''}${this.data.clipEnd ? `clipEnd="${this.data.clipEnd}s"` : ''}>${this.data.alt}</audio>`; break;
-      case 'audio-library': wrappedSsml = `<audio src="${this.data.src}"${this.data.clipBegin ? `clipBegin="${this.data.clipBegin}s"` : ''}${this.data.clipEnd ? `clipEnd="${this.data.clipEnd}s"` : ''}>${this.data.alt}</audio>`; break;
-      case 'break': wrappedSsml = `<speak><break time="${this.data.time}s" /></speak>`; break;
-      default: wrappedSsml = `<speak>${this.getSsml()}</speak>`; break;
+      case 'p':
+      case 'emphasis':
+      case 'sub':
+      case 'prosody':
+      case 'say-as':
+      case 'say-as-date':
+      case 'say-as-time':
+        wrappedSsml = `<speak>${this.getSsml()}</speak>`;
+        break;
+      case 'audio':
+      case 'audio-library':
+        wrappedSsml = `<audio src="${this.data.src}" ` +
+          (this.data.clipBegin ? `clipBegin="${this.data.clipBegin}s"` : '') +
+          (this.data.clipEnd ? `clipEnd="${this.data.clipEnd}s"` : '') +
+          `>${this.data.alt}</audio>`;
+        break;
+      case 'break':
+        wrappedSsml = `<speak><break time="${this.data.time}s" /></speak>`;
+        break;
+      default:
+        wrappedSsml = `<speak>${this.getSsml()}</speak>`;
     }
 
     return wrappedSsml;
   }
 
   getAudioConfig(ssmlContent) {
-    const content = ssmlContent || "<p>hello world</p>";
+    const content = ssmlContent || '<p>hello world</p>';
 
     return {
       audioConfig: {
-        audioEncoding: "LINEAR16",
-        pitch: "0.00",
-        speakingRate: "1.00"
+        audioEncoding: 'LINEAR16',
+        pitch: '0.00',
+        speakingRate: '1.00',
       },
       input: {
         /* Wrap in <speak> tag to render correctly */
-        ssml: `<speak>${content}</speak>`
+        ssml: `<speak>${content}</speak>`,
       },
       voice: {
-        languageCode: "en-US",
-        name: "en-US-Wavenet-D"
-      }
+        languageCode: 'en-US',
+        name: 'en-US-Wavenet-D',
+      },
     };
   }
 
@@ -304,12 +381,14 @@ class SsmlBlock extends PolymerElement {
     let html = '';
     switch (this.type) {
       case 'p':
-        html = `<paper-input data-attr="text" always-float-label label="Say something" value="${this.data.text}"></paper-input>`
+        html = `<paper-input data-attr="text" always-float-label
+          label="Say something" value="${this.data.text}"></paper-input>`
         break;
 
       case 'emphasis':
         html = `
-          <paper-input data-attr="text" always-float-label label="Say something" value="${this.data.text}"></paper-input>
+          <paper-input data-attr="text" always-float-label
+            label="Say something" value="${this.data.text}"></paper-input>
           <strong>Emphasis Level</strong>
           <paper-dropdown-menu data-attr="level" value="${this.data.level}">
             <paper-listbox slot="dropdown-content" class="dropdown-content">
@@ -323,12 +402,15 @@ class SsmlBlock extends PolymerElement {
         break;
 
       case 'sub':
-        html = `<paper-input data-attr="alias" always-float-label label="Say something" value="${this.data.alias}"></paper-input>
-          <paper-input data-attr="text" always-float-label label="Shortened" value="${this.data.text}"></paper-input>`
+        html = `<paper-input data-attr="alias" always-float-label
+            label="Say something" value="${this.data.alias}"></paper-input>
+          <paper-input data-attr="text" always-float-label
+            label="Shortened" value="${this.data.text}"></paper-input>`
         break;
 
       case 'prosody':
-        html = `<paper-input data-attr="text" always-float-label label="Say something" value="${this.data.text}"></paper-input>
+        html = `<paper-input data-attr="text" always-float-label
+            label="Say something" value="${this.data.text}"></paper-input>
           <strong>Speech Rate</strong>
           <paper-dropdown-menu data-attr="rate" value="${this.data.rate}">
             <paper-listbox slot="dropdown-content" class="dropdown-content">
@@ -353,9 +435,11 @@ class SsmlBlock extends PolymerElement {
         break;
 
       case 'say-as':
-        html = `<paper-input data-attr="text" always-float-label label="Say something" value="${this.data.text}"></paper-input>
+        html = `<paper-input data-attr="text" always-float-label
+            label="Say something" value="${this.data.text}"></paper-input>
           <strong>Interpret As</strong>
-          <paper-dropdown-menu data-attr="interpret-as" value="${this.data['interpret-as']}">
+          <paper-dropdown-menu data-attr="interpret-as"
+              value="${this.data['interpret-as']}">
             <paper-listbox slot="dropdown-content" class="dropdown-content">
               <paper-item data-value="cardinal">Cardinal</paper-item>
               <paper-item data-value="ordinal">Ordinal</paper-item>
@@ -370,23 +454,33 @@ class SsmlBlock extends PolymerElement {
         break;
 
       case 'say-as-date':
-        html = `<paper-input data-attr="text" always-float-label label="Date" value="${this.data.text}"></paper-input>
-          <paper-input data-attr="format" always-float-label label="Date format" value="${this.data.format}"></paper-input>
+        html = `<paper-input data-attr="text" always-float-label
+            label="Date" value="${this.data.text}"></paper-input>
+          <paper-input data-attr="format" always-float-label
+            label="Date format" value="${this.data.format}"></paper-input>
           <strong>Say As</strong>
           <paper-dropdown-menu data-attr="detail" value="${this.data.detail}">
             <paper-listbox slot="dropdown-content" class="dropdown-content">
-              <paper-item data-value="1">The {ordinal day} of {month}, {year}</paper-item>
-              <paper-item data-value="2">{Month} {day}, {year}</paper-item>
+              <paper-item data-value="1">
+                The {ordinal day} of {month}, {year}
+              </paper-item>
+              <paper-item data-value="2">
+                {Month} {day}, {year}
+              </paper-item>
             </paper-listbox>
           </paper-dropdown-menu>
 
-          <p>Supported format characters are y, m, d for year, month, and day (of the month) respectively</p>
+          <p>Supported format characters are y, m, d for year, month, and day
+            (of the month) respectively
+          </p>
         `
         break;
 
       case 'say-as-time':
-        html = `<paper-input data-attr="text" always-float-label label="Time" value="${this.data.text}"></paper-input>
-          <paper-input data-attr="format" always-float-label label="Time format" value="${this.data.format}"></paper-input>
+        html = `<paper-input data-attr="text" always-float-label
+            label="Time" value="${this.data.text}"></paper-input>
+          <paper-input data-attr="format" always-float-label
+            label="Time format" value="${this.data.format}"></paper-input>
           <strong>Say As</strong>
           <paper-dropdown-menu data-attr="detail" value="${this.data.detail}">
             <paper-listbox slot="dropdown-content" class="dropdown-content">
@@ -395,23 +489,43 @@ class SsmlBlock extends PolymerElement {
             </paper-listbox>
           </paper-dropdown-menu>
 
-          <p>Supported format characters are h, m, s, Z, 12, 24 for hour, minute, second, time zone, 12-hr, and 24-hr time respectively</p>
+          <p>Supported format characters are h, m, s, Z, 12, 24 for hour,
+            minute, second, time zone, 12-hr, and 24-hr time respectively
+          </p>
         `
         break;
 
       case 'audio':
         html = `<paper-input data-attr="src" always-float-label label="Audio URL" value="${this.data.src}" auto-validate error-message="Requires a valid URL" pattern="https://.*"></paper-input>
-         <paper-input data-attr="alt" always-float-label label="Description" value="${this.data.alt}"></paper-input>
-         <paper-input data-attr="clipBegin" always-float-label label="Clip start (s)" auto-validate error-message="Requires a positive time" pattern="[\\d.]*" value="${this.data.clipBegin || 0}"></paper-input>
-         <paper-input data-attr="clipEnd" always-float-label label="Clip end (s)" auto-validate error-message="Requires a positive time" pattern="[\\d.]*" value="${this.data.clipEnd || 0}"></paper-input>
-          `
+        <paper-input data-attr="alt" always-float-label
+          label="Description" value="${this.data.alt}"></paper-input>
+        <paper-input data-attr="clipBegin" always-float-label
+          label="Clip start (s)" auto-validate
+          error-message="Requires a positive time"
+          pattern="[\\d.]*" value="${this.data.clipBegin || 0}"></paper-input>
+        <paper-input data-attr="clipEnd" always-float-label
+          label="Clip end (s)" auto-validate
+          error-message="Requires a positive time"
+          pattern="[\\d.]*" value="${this.data.clipEnd || 0}"></paper-input>
+        `
         break;
 
       case 'audio-library':
         html = `
-          <input data-attr="alt" always-float-label label="Search for a sound effect" value="${this.data.alt}" type="search" list="sound-library" style="border: none; border-bottom: solid 1px black; font-size: 11pt;"></input>
-          <paper-input data-attr="clipBegin" always-float-label label="Clip start (s)" auto-validate error-message="Requires a positive time" pattern="[\\d.]*" value="${this.data.clipBegin || 0}"></paper-input>
-          <paper-input data-attr="clipEnd" always-float-label label="Clip end (s)" auto-validate error-message="Requires a positive time" pattern="[\\d.]*" value="${this.data.clipEnd || 0}"></paper-input>
+          <input data-attr="alt" always-float-label
+            label="Search for a sound effect" value="${this.data.alt}"
+            type="search" list="sound-library"
+            style="border: none; border-bottom: solid 1px black;
+              font-size: 11pt;">
+          </input>
+          <paper-input data-attr="clipBegin" always-float-label
+            label="Clip start (s)" auto-validate
+            error-message="Requires a positive time"
+            pattern="[\\d.]*" value="${this.data.clipBegin || 0}"></paper-input>
+          <paper-input data-attr="clipEnd" always-float-label
+            label="Clip end (s)" auto-validate
+            error-message="Requires a positive time"
+            pattern="[\\d.]*" value="${this.data.clipEnd || 0}"></paper-input>
           <datalist id="sound-library">
             <option value="Alarm Clock">
             <option value="Assorted Computer Sounds">
@@ -421,18 +535,20 @@ class SsmlBlock extends PolymerElement {
         window.requestAnimationFrame(() => {
           // Add a search listener
           document.getElementById('block-editor-ui')
-            .querySelector('input[data-attr="alt"]')
-            .addEventListener('input', (event) => {
+              .querySelector('input[data-attr="alt"]')
+              .addEventListener('input', (event) => {
               // Search sound library
-              console.log(event);
-              const sound = this.soundLibrary.filter(s => s.sound.toLowerCase() === event.path[0].value.toLowerCase())[0]
-              console.log('Found', sound);
-              if (!sound) return;
-              timeline.blocks[this.index].data['alt'] = sound.sound;
-              timeline.blocks[this.index].data['src'] = sound.url;
-              timeline.updateTimeline();
-              timeline.genAudio(this.index, timeline.genSsml(timeline.blocks[this.index]));
-            });
+                const soundValue = event.path[0].value.toLowerCase()
+                const sound = this.soundLibrary
+                    .filter((s) => s.sound.toLowerCase() === soundValue)[0]
+                console.log('Found', sound);
+                if (!sound) return;
+                timeline.blocks[this.index].data['alt'] = sound.sound;
+                timeline.blocks[this.index].data['src'] = sound.url;
+                timeline.updateTimeline();
+                timeline.genAudio(this.index,
+                    timeline.genSsml(timeline.blocks[this.index]));
+              });
         });
         break;
     }
@@ -442,26 +558,29 @@ class SsmlBlock extends PolymerElement {
     window.requestAnimationFrame(() => {
       document.getElementById('block-editor-ui')
           .querySelectorAll('paper-input')
-          .forEach(input => {
-        input.addEventListener('input', () => {
-          // Map directly onto the timeline on each change
-          timeline.blocks[this.index].data[input.dataset.attr] = input.value;
-          timeline.updateTimeline();
-          timeline.genAudio(this.index, timeline.genSsml(timeline.blocks[this.index]));
-        });
-      });
+          .forEach((input) => {
+            input.addEventListener('input', () => {
+              // Map directly onto the timeline on each change
+              timeline.blocks[this.index].data[input.dataset.attr] =
+                input.value;
+              timeline.updateTimeline();
+              timeline.genAudio(this.index,
+                  timeline.genSsml(timeline.blocks[this.index]));
+            });
+          });
 
       document.getElementById('block-editor-ui')
           .querySelectorAll('paper-dropdown-menu')
-          .forEach(input => {
-        input.addEventListener('iron-select', () => {
-          // Map directly onto the timeline on each change
-          const value = input.selectedItem.dataset.value;
-          timeline.blocks[this.index].data[input.dataset.attr] = value;
-          timeline.updateTimeline();
-          timeline.genAudio(this.index, timeline.genSsml(timeline.blocks[this.index]));
-        });
-      });
+          .forEach((input) => {
+            input.addEventListener('iron-select', () => {
+              // Map directly onto the timeline on each change
+              const value = input.selectedItem.dataset.value;
+              timeline.blocks[this.index].data[input.dataset.attr] = value;
+              timeline.updateTimeline();
+              timeline.genAudio(this.index,
+                  timeline.genSsml(timeline.blocks[this.index]));
+            });
+          });
     });
   }
 }

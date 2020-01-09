@@ -21,11 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
   new App();
   // Init Firebase
   const firebaseConfig = {
-    apiKey: "AIzaSyCxLwHelYYu6_4FCmxEiwGB3DJHem6-vsk",
-    authDomain: "nightingale-73361.firebaseapp.com",
-    projectId: "nightingale-73361",
-    appId: "1:856168060350:web:1ab0fa39c3f6b9e4ddd5ef"
+    apiKey: 'AIzaSyCxLwHelYYu6_4FCmxEiwGB3DJHem6-vsk',
+    authDomain: 'nightingale-73361.firebaseapp.com',
+    projectId: 'nightingale-73361',
+    appId: '1:856168060350:web:1ab0fa39c3f6b9e4ddd5ef',
   };
   // Initialize Firebase
+  // eslint-disable-next-line
   firebase.initializeApp(firebaseConfig);
 });

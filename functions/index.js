@@ -17,18 +17,18 @@ const functions = require('firebase-functions');
 const textToSpeech = require('@google-cloud/text-to-speech');
 
 exports.synthesize = functions.https.onCall(async (data, _) => {
-    const {body} = data
-    // Use Application Default Credentials in Firebase runtime
-    const client = new textToSpeech.TextToSpeechClient();
-    try {
-        const [synthRes] = await client.synthesizeSpeech(body);
-        const data = synthRes.audioContent
-        let buff = new Buffer(data);
-        let base64data = buff.toString('base64');
-        return {
-            audioContent: base64data
-        }
-    } catch (e) {
-        throw new functions.https.HttpsError('internal', e)
-    }
-})
+  const {body} = data;
+  // Use Application Default Credentials in Firebase runtime
+  const client = new textToSpeech.TextToSpeechClient();
+  try {
+    const [synthRes] = await client.synthesizeSpeech(body);
+    const data = synthRes.audioContent;
+    const buffer = new Buffer(data);
+    const base64data = buffer.toString('base64');
+    return {
+      audioContent: base64data,
+    };
+  } catch (e) {
+    throw new functions.https.HttpsError('internal', e);
+  }
+});
