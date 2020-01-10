@@ -15,6 +15,35 @@ limitations under the License.
  */
 
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+// Importing modules exposes access to shadow root
+// eslint-disable-next-line
+import {appToolbar} from "@polymer/app-layout/app-toolbar/app-toolbar.js";
+// eslint-disable-next-line
+import {paperCard} from "@polymer/paper-card/paper-card.js";
+// eslint-disable-next-line
+import {ironIcons} from "@polymer/iron-icons/iron-icons.js";
+// eslint-disable-next-line
+import {paperDropdownMenu} from "@polymer/paper-dropdown-menu/paper-dropdown-menu.js";
+// eslint-disable-next-line
+import {paperMenuButton} from "@polymer/paper-menu-button/paper-menu-button.js";
+// eslint-disable-next-line
+import {paperListbox} from "@polymer/paper-listbox/paper-listbox.js";
+// eslint-disable-next-line
+import {paperItem} from "@polymer/paper-item/paper-item.js";
+// eslint-disable-next-line
+import {paperItemBody} from "@polymer/paper-item/paper-item-body.js";
+// eslint-disable-next-line
+import {paperButton} from "@polymer/paper-button/paper-button.js";
+// eslint-disable-next-line
+import {paperToast} from "@polymer/paper-toast/paper-toast.js";
+// eslint-disable-next-line
+import {paperDialog} from "@polymer/paper-dialog/paper-dialog.js";
+// eslint-disable-next-line
+import {paperToolbar} from "@polymer/paper-toolbar/paper-toolbar.js";
+// eslint-disable-next-line
+import {paperIconButton} from "@polymer/paper-icon-button/paper-icon-button.js";
+// eslint-disable-next-line
+import {paperSlider} from "@polymer/paper-slider/paper-slider.js";
 
 /**
  * @customElement

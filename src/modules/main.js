@@ -14,6 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
+// Importing modules exposes access to shadow root
+// eslint-disable-next-line
+import {paperDropdownMenu} from '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+// eslint-disable-next-line
+import {paperDialog} from "@polymer/paper-dialog/paper-dialog.js";
+
 import './ssml-block'
 import './ssml-timeline'
 
