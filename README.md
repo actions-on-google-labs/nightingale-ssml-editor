@@ -10,7 +10,7 @@ A graphical tool to generate and simulate the [Speech Synthesis Markup Language 
 using a familiar non-linear editor interface. In voice applications, SSML can be used to create
 more immersive audio experiences.
 
-[Try it out!](https://actions-on-google-labs.github.io/nightingale)
+[Try it out!](https://actions-on-google-labs.github.io/nightingale-ssml-editor)
 
 ## Key features
 * Drag and drop blocks onto multiple tracks
