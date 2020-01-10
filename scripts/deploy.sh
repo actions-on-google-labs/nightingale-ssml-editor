@@ -39,7 +39,7 @@ cd ${PUBLISH_FOLDER}
 
 # Initialize git repository
 git init
-git remote add github git@github.com:actions-on-google-labs/nightingale.git
+git remote add github git@github.com:actions-on-google-labs/nightingale-ssml-editor.git
 
 git add .
 git commit -m "Rebuild at $(date)" --no-verify
