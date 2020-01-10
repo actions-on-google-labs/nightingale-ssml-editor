@@ -154,22 +154,18 @@ class SsmlBlock extends PolymerElement {
         type: Number,
         value: 0,
       },
-      // TODO pull from a JSON file elsewhere?
       // https://developers.google.com/actions/tools/sound-library/
       soundLibrary: {
         type: Array,
-        value: [{
-          sound: 'Alarm Clock',
-          url: 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg',
-        }, {
-          sound: 'Assorted Computer Sounds',
-          url: 'https://actions.google.com/sounds/v1/alarms/assorted_computer_sounds.ogg',
-        }, {
-          sound: 'Beep Short',
-          url: 'https://actions.google.com/sounds/v1/alarms/beep_short.ogg',
-        }],
+        value: [],
       },
     };
+  }
+
+  ready() {
+    super.ready();
+    // eslint-disable-next-line
+    this.soundLibrary = require('../sound-library.json')
   }
 
   copy(block) {
@@ -527,9 +523,7 @@ class SsmlBlock extends PolymerElement {
             error-message="Requires a positive time"
             pattern="[\\d.]*" value="${this.data.clipEnd || 0}"></paper-input>
           <datalist id="sound-library">
-            <option value="Alarm Clock">
-            <option value="Assorted Computer Sounds">
-            <option value="Beep Short">
+            ${this.soundLibrary.map(sound => `<option value="${sound.sound}">\n`).join('\n')}
           </datalist>
           `
         window.requestAnimationFrame(() => {
@@ -537,12 +531,12 @@ class SsmlBlock extends PolymerElement {
           document.getElementById('block-editor-ui')
               .querySelector('input[data-attr="alt"]')
               .addEventListener('input', (event) => {
-              // Search sound library
+                // Search sound library
                 const soundValue = event.path[0].value.toLowerCase()
                 const sound = this.soundLibrary
                     .filter((s) => s.sound.toLowerCase() === soundValue)[0]
-                console.log('Found', sound);
                 if (!sound) return;
+
                 timeline.blocks[this.index].data['alt'] = sound.sound;
                 timeline.blocks[this.index].data['src'] = sound.url;
                 timeline.updateTimeline();
