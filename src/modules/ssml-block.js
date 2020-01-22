@@ -213,56 +213,56 @@ class SsmlBlock extends PolymerElement {
     switch (this.type) {
       case 'p':
         html = `<span class="audio-description">
-          <img src="/images/mic.png" />
+          <img src="./images/mic.png" />
           ${this.data.text}
           </span>`;
         break;
       case 'emphasis':
         html = `<strong class="audio-description">
-          <img src="/images/speaker.png" />
+          <img src="./images/speaker.png" />
           ${this.data.text}
           </strong>`;
         break;
       case 'sub':
         html = `<span class="audio-description">
-          <img src="/images/speech.png" />
+          <img src="./images/speech.png" />
           ${this.data.alias} (${this.data.text})
           </span>`;
         break;
       case 'say-as':
         html = `<span class="audio-description">
-          <img src="/images/say.png"/>
+          <img src="./images/say.png"/>
           ${this.data.text}
           (say as ${this.data['interpret-as']})
           </span>`;
         break;
       case 'say-as-date':
         html = `<span class="audio-description">
-          <img src="/images/date.png"/>
+          <img src="./images/date.png"/>
           ${this.data.text}
           </span>`;
         break;
       case 'say-as-time':
         html = `<span class="audio-description">
-          <img src="/images/time.png" />
+          <img src="./images/time.png" />
           ${this.data.text}
           </span>`;
         break;
       case 'prosody':
         html = `<span class="audio-description">
-          <img src="/images/dynamic.png" />
+          <img src="./images/dynamic.png" />
           ${this.data.text}
           </span>`;
         break;
       case 'audio':
         html = `<strong class="audio-description">
-          <img src="/images/audio.png" />
+          <img src="./images/audio.png" />
           ${this.data.alt}
           </strong>`;
         break;
       case 'audio-library':
         html = `<strong class="audio-description">
-          <img src="/images/library.png" />
+          <img src="./images/library.png" />
           ${this.data.alt}
           </strong>`;
         break;

@@ -16,10 +16,6 @@ limitations under the License.
 
 $unit: 8px;
 
-
-$unit: 8px;
-
-
 ssml-timeline::part(status) {
   background: $playhead-bg;
   box-sizing: border-box;
@@ -41,7 +37,7 @@ ssml-timeline::part(status) {
 
 ssml-timeline::part(blankstate) {
   align-items: flex-end;
-  background: url('/images/blankstate.png') center center no-repeat;
+  background: url('/nightingale-ssml-editor/images/blankstate.png') center center no-repeat;
   box-sizing: border-box;
   border-radius: 4px;
   justify-content: center;

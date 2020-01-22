@@ -17,14 +17,23 @@
 # Build the client
 yarn build
 
-# Deploy function
+# Deploy function, requires valid Firebase credentials
+cd functions
+yarn # Install dependencies
 firebase deploy --only functions
+cd ..
 
 # Deploy client
 
 PUBLISH_BRANCH="gh-pages"
 PUBLISH_FOLDER="public"
-# Check whether to create a new branch
+
+cd ${PUBLISH_FOLDER}
+
+# Initialize git repository
+git init
+
+# Create a new branch in the new git repository
 git branch | grep ${PUBLISH_BRANCH}
 if [ "$?" -gt 0 ]; then
     # Branch not found
@@ -35,15 +44,13 @@ else
     git checkout ${PUBLISH_BRANCH}
 fi
 
-cd ${PUBLISH_FOLDER}
-
-# Initialize git repository
-git init
 git remote add github git@github.com:actions-on-google-labs/nightingale-ssml-editor.git
+git fetch github # Make sure to pick up gh-pages branch
 
 git add .
 git commit -m "Rebuild at $(date)" --no-verify
 
+# Manual confirmation before we deploy, just in case
 echo "Confirm a republish of this project with 'y'"
 
 read confirm

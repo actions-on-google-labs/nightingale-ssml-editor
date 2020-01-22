@@ -13,35 +13,37 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-const webpack = require('webpack'); //to access built-in plugins
+const webpack = require('webpack'); // To access built-in plugins
 const path = require('path');
 
 module.exports = (env) => {
   console.log(env);
 
-  const watch = env === "development" ? true : false; 
+  const watch = env === 'development' ? true : false;
 
   return {
-    watch: watch, 
+    watch,
     devServer: {
+      // eslint-disable-next-line
       contentBase: path.join(__dirname, 'public'),
       compress: false,
-      port: 8080
+      port: 8080,
     },
     entry: './src/index.js',
     output: {
       filename: 'app.js',
-      path: path.resolve(__dirname, 'public')
-    }, 
+      // eslint-disable-next-line
+      path: path.resolve(__dirname, 'public'),
+    },
     module: {
       rules: [{
         test: /\.scss$/,
         use: [
-          "style-loader", // creates style nodes from JS strings
-          "css-loader", // translates CSS into CommonJS
-          "sass-loader" // compiles Sass to CSS, using Node Sass by default
-        ]
-      }]
-    }
+          'style-loader', // Creates style nodes from JS strings
+          'css-loader', // Translates CSS into CommonJS
+          'sass-loader', // Compiles Sass to CSS, using Node Sass by default
+        ],
+      }],
+    },
   };
-}
+};
