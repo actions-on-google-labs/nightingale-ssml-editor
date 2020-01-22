@@ -1,0 +1,251 @@
+<!--
+Copyright 2019 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <meta name="description" content="nightingale description">
+
+    <!-- TITLE -->
+    <title>nightingale</title>
+
+    <!-- WEB APP -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="shortcut icon" href="./images/nightingale.png" type="image/x-icon">
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,500,700" rel="stylesheet">
+
+    <!-- JAVASCRIPT -->
+    <script src="js/webcomponents-loader.js"></script>
+    <script src="js/web-animations-next-lite.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-functions.js"></script>
+
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+
+  <body>
+    <!-- LOADING -->
+    <div id="loading" class="loading">
+      <h1>Nightingale Text-to-Speech Demo</h1>
+      <div class="slash">/</div>
+      <h2>One Moment...</h2>
+    </div>
+
+    <!-- HEADER -->
+    <app-header>
+      <app-toolbar>
+        <div class="toolbar-title">
+          <h1>
+            <i class="material-icons">music_note</i>
+            Nightingale
+            <em>Text-to-Speech Demo</em>
+          </h1>
+
+          <div class="play-head">
+            <paper-button class="play-button" id="btn-play">
+              <i class="material-icons">play_circle_filled</i>
+            </paper-button>
+            <paper-button class="close-button is-hidden" id="btn-stop">
+              <i class="material-icons">pause_circle_filled</i>
+            </paper-button>
+            <div class="time-readout" id='timeline-time'>0:00</div>
+          </div>
+        </div>
+
+        <custom-style>
+          <style is="custom-style">
+            paper-dropdown-menu.custom {
+              --paper-input-container-label: {
+                color: #FFF;
+              };
+              --paper-input-container-input: {
+                color: #FFF;
+                font-style: normal;
+              };
+              /* no underline */
+              --paper-input-container-underline: {
+                display: none;
+              };
+            }
+          </style>
+        </custom-style>
+
+        <paper-dropdown-menu class="custom" id="tts-locale" label="Locale">
+          <paper-listbox slot="dropdown-content" class="dropdown-content" selected="0">
+            <paper-item data-value="en-US">English (United States)</paper-item>
+            <paper-item data-value="en-GB">English (Great Britain)</paper-item>
+            <paper-item data-value="en-AU">English (Australia)</paper-item>
+            <paper-item data-value="nl-NL">Dutch (Netherlands)</paper-item>
+            <paper-item data-value="fr-FR">French (France)</paper-item>
+            <paper-item data-value="fr-CA">French (Canada)</paper-item>
+            <paper-item data-value="da-DK">Dansk (Denmark)</paper-item>
+            <paper-item data-value="de-DE">German</paper-item>
+            <paper-item data-value="it-IT">Italian</paper-item>
+            <paper-item data-value="ja-JP">Japanese</paper-item>
+            <paper-item data-value="ko-KR">Korean</paper-item>
+            <paper-item data-value="nb-no">Norweigan</paper-item>
+            <paper-item data-value="pl-PL">Polish</paper-item>
+            <paper-item data-value="pt-BR">Portugese (Brazil)</paper-item>
+            <paper-item data-value="pt-PT">Portugese (Portugal)</paper-item>
+            <paper-item data-value="ru-RU">Russian</paper-item>
+            <paper-item data-value="es-ES">Spanish</paper-item>
+            <paper-item data-value="sk-SK">Slovak</paper-item>
+            <paper-item data-value="sv-SE">Swedish</paper-item>
+            <paper-item data-value="tr-TR">Turkish</paper-item>
+            <paper-item data-value="uk-UA">Ukranian</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        <paper-dropdown-menu class="custom" id="tts-voices" label="Voice">
+          <paper-listbox slot="dropdown-content" class="dropdown-content" selected="3">
+            <paper-item data-value="en-US-Wavenet-A">en-US-Wavenet-A</paper-item>
+            <paper-item data-value="en-US-Wavenet-B">en-US-Wavenet-B</paper-item>
+            <paper-item data-value="en-US-Wavenet-C">en-US-Wavenet-C</paper-item>
+            <paper-item data-value="en-US-Wavenet-D">en-US-Wavenet-D</paper-item>
+            <paper-item data-value="en-US-Wavenet-E">en-US-Wavenet-E</paper-item>
+            <paper-item data-value="en-US-Wavenet-F">en-US-Wavenet-F</paper-item>
+            <paper-item data-value="en-US-Standard-B">en-US-Standard-B</paper-item>
+            <paper-item data-value="en-US-Standard-C">en-US-Standard-C</paper-item>
+            <paper-item data-value="en-US-Standard-D">en-US-Standard-D</paper-item>
+            <paper-item data-value="en-US-Standard-E">en-US-Standard-E</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        <paper-button class="news-button" id="btn-news" raised>
+          <i class="material-icons">new_releases</i>
+        </paper-button>
+
+        <paper-button class="export-button" id="btn-download" raised>Download Audio</paper-button>
+        <paper-button class="export-button" id="btn-ssml" raised>Export SSML</paper-button>
+      </app-toolbar>
+    </app-header>
+
+    <!-- NEWS MODAL -->
+    <paper-dialog id="news" modal class="modal modal-news">
+      <paper-button class="modal-news-close" dialog-confirm autofocus>x</paper-button>
+
+      <h3>Release Notes</h3>
+
+      <time datetime="2018-09-26">2018-09-26</time>
+      <ul>
+        <li>Added emphasis block</li>
+        <li>Added track-level editing</li>
+        <li>Added block snapping</li>
+        <li>Added changable voice</li>
+      </ul>
+
+      <time datetime="2018-09-19">2018-09-19</time>
+      <ul>
+        <li>Added sub, prosody, and say-as blocks</li>
+        <li>Added clipping to audio blocks</li>
+        <li>Fixed audio playback glitches</li>
+      </ul>
+
+      <time datetime="2018-09-10">2018-09-10</time>
+      <ul>
+        <li>Migration to Polymer</li>
+      </ul>
+    </paper-dialog>
+
+    <!-- SSML EXPORT MODAL -->
+    <paper-dialog id="ssml" modal class="modal modal-export">
+      <div class="buttons">
+        <paper-button id="btn-copy" dialog-confirm>Copy</paper-button>
+        <paper-button dialog-confirm autofocus>Close</paper-button>
+      </div>
+      <pre id="ssml-gen"></pre>
+    </paper-dialog>
+
+    <!-- CLIP EDITOR MODAL -->
+    <paper-dialog id="block-editor" modal class="modal editor">
+      <h3>Clip Details</h3>
+      <div id="block-editor-ui"></div>
+      <div class="buttons">
+        <paper-button dialog-confirm autofocus>DONE</paper-button>
+      </div>
+    </paper-dialog>
+
+    <!-- TIMELINE -->
+    <div class="timeline">
+        <div id='timeline-container'>
+          <div class="zoom-controls">
+            <paper-button class="zoom-in" id="btn-zoomi">
+              <i class="material-icons">zoom_in</i>
+            </paper-button>
+
+            <paper-button class="zoom-out" id="btn-zoomo">
+              <i class="material-icons">zoom_out</i>
+            </paper-button>
+            <paper-button class="zoom-refresh" id="btn-zoomr">
+              <i class="material-icons">refresh</i>
+            </paper-button>
+          </div>
+          <ssml-timeline id='timeline'></ssml-timeline>
+        </div>
+    </div>
+
+    <!-- LIBRARY -->
+    <div id='block-library' class="library">
+      <div class="library-handle" id="btn-toolbox"></div>
+
+      <div id="ssml-blocks" class="library">
+        <div draggable="true" class="ssml-block" data-type="p" data-text="hello world">
+          <i class="material-icons">mic</i>
+          Simple Speech
+        </div>
+
+        <div draggable="true" class="ssml-block" data-type="emphasis" data-text="good morning" data-level="strong">
+          <i class="material-icons">volume_up</i>
+          Emphasis
+        </div>
+        <div draggable="true" class="ssml-block" data-type="sub" data-text="W3C" data-alias="World Wide Web Consortium">
+          <i class="material-icons">radio</i>
+          Speech Alias
+        </div>
+        <div draggable="true" class="ssml-block" data-type="say-as" data-text="1" data-interpret-as="ordinal">
+          <i class="material-icons">record_voice_over</i>
+          Say As
+        </div>
+        <div draggable="true" class="ssml-block" data-type="say-as-date" data-text="1960-09-10" data-format="yyyymmdd" data-detail="1">
+          <i class="material-icons">today</i>
+          Date
+        </div>
+        <div draggable="true" class="ssml-block" data-type="say-as-time" data-text="2:30pm" data-format="hms12" data-detail="1">
+          <i class="material-icons">schedule</i>
+          Time
+        </div>
+        <div draggable="true" class="ssml-block" data-type="prosody" data-text="hello world" data-rate="slow" data-pitch="low">
+          <i class="material-icons">settings_voice</i>
+          Dynamic Speech
+        </div>
+        <div draggable="true" class="ssml-block" data-type="audio" data-src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" data-alt="Beep Short" data-clipBegin="0" data-clipEnd="0">
+          <i class="material-icons">music_video</i>
+          Audio
+        </div>
+        <div draggable="true" class="ssml-block" data-type="audio-library" data-src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" data-alt="Beep Short" data-clipBegin="0" data-clipEnd="0">
+          <i class="material-icons">library_music</i>
+          Sound Library
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
