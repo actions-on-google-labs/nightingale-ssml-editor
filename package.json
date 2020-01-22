@@ -21,7 +21,6 @@
     "@polymer/paper-toast": "^3.0.0-pre.21",
     "@polymer/paper-toolbar": "^3.0.0-pre.25",
     "@polymer/polymer": "^3.0.0",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "sass": "^1.17.3",
