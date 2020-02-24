@@ -15,6 +15,7 @@ limitations under the License.
  */
 
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {synthesize} from '../client-config'
 
 /**
  * @customElement
@@ -582,20 +583,6 @@ class SsmlTimeline extends PolymerElement {
     return ssml;
   }
 
-  genAudioConfig(blockId, ssmlContent) {
-    const blockElement =
-      this.$.tracks.querySelector(`#timeline-block-${blockId}`);
-    const config = blockElement.getAudioConfig(ssmlContent);
-
-    // Change voice if applicable
-    config.voice = {
-      languageCode: this.locale,
-      name: this.voice,
-    }
-
-    return config;
-  }
-
   resetAudio() {
     this.$.tracks.querySelectorAll('.timeline-block').forEach((block) => {
       this.genAudio(block.index, block.getSsml());
@@ -603,29 +590,25 @@ class SsmlTimeline extends PolymerElement {
   }
 
   genAudio(blockId, ssmlContent) {
-    // eslint-disable-next-line
-    const endpoint = firebase.functions().httpsCallable('synthesize');
-    const body = this.genAudioConfig(blockId, ssmlContent)
-
     // Determine when the audio was last updated
     const audioRequestSentTime = new Date();
 
     const block = this.$.tracks.querySelector(`#timeline-block-${blockId}`);
     block.classList.add('pending');
 
-    endpoint({body}).then((result) => {
-      // Read result of the Cloud Function.
-      if (this.blocks[blockId].audioUpdated <= audioRequestSentTime) {
-        this.blocks[blockId].audioUpdated = audioRequestSentTime;
+    synthesize(block.getSsml(), {languageCode: this.locale, name: this.voice})
+        .then((result) => {
+        // Read result of the Cloud Function.
+          if (this.blocks[blockId].audioUpdated <= audioRequestSentTime) {
+            this.blocks[blockId].audioUpdated = audioRequestSentTime;
 
-        const {audioContent} = result.data;
-        this.blocks[blockId].audio = audioContent;
-        this.mix();
-      } // Otherwise, the audio data is considered stale
-      block.classList.remove('pending');
-    }).catch((e) => {
-      console.error(`Cannot sythesize audio for block ${blockId}`, e)
-    })
+            this.blocks[blockId].audio = result;
+            this.mix();
+          } // Otherwise, the audio data is considered stale
+          block.classList.remove('pending');
+        }).catch((e) => {
+          console.error(`Cannot sythesize audio for block ${blockId}`, e)
+        })
   }
 
   mix() {

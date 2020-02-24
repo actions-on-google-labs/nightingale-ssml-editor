@@ -22,6 +22,7 @@ import {paperDialog} from "@polymer/paper-dialog/paper-dialog.js";
 
 import './ssml-block'
 import './ssml-timeline'
+import { synthesize } from '../client-config';
 
 export default class App {
   constructor() {
@@ -704,37 +705,23 @@ export default class App {
   }
 
   downloadAudio() {
-    const copyText = this.exportModalContent.textContent;
+    const timelineSsml = this.timeline.getSsml();
     // eslint-disable-next-line
-    const endpoint = firebase.functions().httpsCallable('synthesize');
 
-    const body = {
-      audioConfig: {
-        audioEncoding: 'LINEAR16',
-        pitch: '0.00',
-        speakingRate: '1.00',
-      },
-      input: {
-        /* Wrap in <speak> tag to render correctly */
-        ssml: copyText,
-      },
-      voice: {
-        languageCode: this.timeline.locale,
-        name: this.timeline.voice,
-      },
-    };
-
-    endpoint({body}).then(function(result) {
-      const {audioContent} = result.data;
-      const downloadButton = document.createElement('a');
-      downloadButton.setAttribute('href',
-          `data:audio/wav;base64,${audioContent}`);
-      downloadButton.setAttribute('download',
-          `nightingale-${new Date().toISOString()}.wav`);
-      downloadButton.click()
-    }).catch((e) => {
-      console.error(`Cannot create synthezied audio`, e)
+    synthesize(timelineSsml, {
+      languageCode: this.timeline.locale,
+      name: this.timeline.voice,
     })
+        .then((result) => {
+          const downloadButton = document.createElement('a');
+          downloadButton.setAttribute('href',
+              `data:audio/wav;base64,${result}`);
+          downloadButton.setAttribute('download',
+              `nightingale-${new Date().toISOString()}.wav`);
+          downloadButton.click()
+        }).catch((e) => {
+          console.error(`Cannot create synthezied audio`, e)
+        })
   }
 
   updateDropdowns() {
