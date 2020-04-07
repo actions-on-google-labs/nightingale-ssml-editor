@@ -19,40 +19,59 @@ import ssmlTypes from '../ssml-types'
 
 // Importing modules exposes access to shadow root
 // eslint-disable-next-line
-import {appToolbar} from "@polymer/app-layout/app-toolbar/app-toolbar.js";
+import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 // eslint-disable-next-line
-import {paperCard} from "@polymer/paper-card/paper-card.js";
+import '@polymer/paper-card/paper-card.js';
 // eslint-disable-next-line
-import {ironIcons} from "@polymer/iron-icons/iron-icons.js";
+import '@polymer/iron-icons/iron-icons.js';
 // eslint-disable-next-line
-import {paperDropdownMenu} from "@polymer/paper-dropdown-menu/paper-dropdown-menu.js";
+import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import {PaperDropdownMenuElement} from '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 // eslint-disable-next-line
-import {paperMenuButton} from "@polymer/paper-menu-button/paper-menu-button.js";
+import '@polymer/paper-menu-button/paper-menu-button.js';
 // eslint-disable-next-line
-import {paperListbox} from "@polymer/paper-listbox/paper-listbox.js";
+import '@polymer/paper-listbox/paper-listbox.js';
 // eslint-disable-next-line
-import {paperItem} from "@polymer/paper-item/paper-item.js";
+import '@polymer/paper-item/paper-item.js'
+import {PaperItemElement} from "@polymer/paper-item/paper-item.js";
 // eslint-disable-next-line
-import {paperItemBody} from "@polymer/paper-item/paper-item-body.js";
+import '@polymer/paper-item/paper-item-body.js';
 // eslint-disable-next-line
-import {paperButton} from "@polymer/paper-button/paper-button.js";
+import '@polymer/paper-button/paper-button.js';
 // eslint-disable-next-line
-import {paperToast} from "@polymer/paper-toast/paper-toast.js";
+import '@polymer/paper-toast/paper-toast.js';
 // eslint-disable-next-line
-import {paperDialog} from "@polymer/paper-dialog/paper-dialog.js";
+import '@polymer/paper-dialog/paper-dialog.js'
+import {PaperDialogElement} from "@polymer/paper-dialog/paper-dialog.js";
 // eslint-disable-next-line
-import {paperToolbar} from "@polymer/paper-toolbar/paper-toolbar.js";
+import '@polymer/paper-toolbar/paper-toolbar.js';
 // eslint-disable-next-line
-import {paperIconButton} from "@polymer/paper-icon-button/paper-icon-button.js";
+import '@polymer/paper-icon-button/paper-icon-button.js';
 // eslint-disable-next-line
-import {paperSlider} from "@polymer/paper-slider/paper-slider.js";
+import '@polymer/paper-slider/paper-slider.js';
+import '@polymer/paper-input/paper-input.js'
+import {PaperInputElement} from "@polymer/paper-input/paper-input.js";
+
+import { Data, SoundLibrary } from '../ssml-types/ssml-type';
+import SsmlTimeline, { TimelineBlock } from './ssml-timeline';
 
 /**
  * @customElement
  * @polymer
  */
 
-class SsmlBlock extends PolymerElement {
+export default class SsmlBlock extends PolymerElement {
+  data: Data = {}
+  time: number = 0
+  type: string = 'p'
+  track: number = 0
+  index: number = 0
+  audioUpdated: number = 0
+  // https://developers.google.com/actions/tools/sound-library/
+  soundLibrary?: SoundLibrary
+  blockEditorUi?: HTMLElement
+  blockEditor?: PaperDialogElement
+
   static get template() {
     return html`
       <style>
@@ -162,7 +181,6 @@ class SsmlBlock extends PolymerElement {
       },
       time: {
         type: Number,
-        value: 0,
         reflectToAttribute: true,
       },
       type: {
@@ -173,22 +191,11 @@ class SsmlBlock extends PolymerElement {
       },
       track: {
         type: Number,
-        value: 0,
         reflectToAttribute: true,
       },
       index: {
         type: Number,
-        value: 0,
         reflectToAttribute: true,
-      },
-      audioUpdated: {
-        type: Number,
-        value: 0,
-      },
-      // https://developers.google.com/actions/tools/sound-library/
-      soundLibrary: {
-        type: Array,
-        value: [],
       },
     };
   }
@@ -197,9 +204,11 @@ class SsmlBlock extends PolymerElement {
     super.ready();
     // eslint-disable-next-line
     this.soundLibrary = require('../sound-library.json')
+    this.blockEditorUi = document.getElementById('block-editor-ui')!
+    this.blockEditor = document.getElementById('block-editor')! as PaperDialogElement
   }
 
-  copy(block) {
+  copy(block: TimelineBlock) {
     this.data = block.data;
     this.time = block.time;
     this.type = block.type;
@@ -228,8 +237,8 @@ class SsmlBlock extends PolymerElement {
   }
 
   renderHtml() {
-    if (this.$ && this.$.blockDiv) {
-      this.$.blockDiv.innerHTML = this.getHtml();
+    if (this.$ && this.$['blockDiv']) {
+      this.$['blockDiv'].innerHTML = this.getHtml();
     }
   }
 
@@ -241,7 +250,7 @@ class SsmlBlock extends PolymerElement {
     return ssmlTypes[this.type].getOuterSsml(this.data);
   }
 
-  getAudioConfig(ssmlContent) {
+  getAudioConfig(ssmlContent: string) {
     const content = ssmlContent || '';
 
     return {
@@ -262,47 +271,45 @@ class SsmlBlock extends PolymerElement {
   }
 
   editBtn() {
-    return this.$.blockDiv.querySelector('#btnEdit')
+    return this.$['blockDiv'].querySelector('#btnEdit')! as HTMLButtonElement
   }
 
   deleteBtn() {
-    return this.$.blockDiv.querySelector('#btnDelete')
+    return this.$['blockDiv'].querySelector('#btnDelete')! as HTMLElement
   }
 
-  openEditor(timeline) {
+  openEditor(timeline: SsmlTimeline) {
     const {html, onOpen} = ssmlTypes[this.type].getEditor(this.data,
-        this.soundLibrary);
+        this.soundLibrary!);
 
-    document.getElementById('block-editor-ui').innerHTML = html;
-    document.getElementById('block-editor').open();
+    this.blockEditorUi!.innerHTML = html;
+    this.blockEditor!.open();
     window.requestAnimationFrame(() => {
       // Execute any additional logic after editor dialog box starts
       onOpen(timeline.blocks[this.index], timeline, this.index,
-          this.soundLibrary);
+          this.soundLibrary!);
 
-      document.getElementById('block-editor-ui')
-          .querySelectorAll('paper-input')
-          .forEach((input) => {
+      this.blockEditorUi!.querySelectorAll('paper-input')
+          .forEach((input: PaperInputElement) => {
             input.addEventListener('input', () => {
               // Map directly onto the timeline on each change
-              timeline.blocks[this.index].data[input.dataset.attr] =
-                input.value;
+              const attr = input.dataset['attr']!
+              timeline.blocks[this.index].data[attr] = input.value!;
               timeline.updateTimeline();
-              timeline.genAudio(this.index,
-                  timeline.genSsml(timeline.blocks[this.index]));
+              timeline.genAudio(this.index);
             });
           });
 
-      document.getElementById('block-editor-ui')
-          .querySelectorAll('paper-dropdown-menu')
-          .forEach((input) => {
+      this.blockEditorUi!.querySelectorAll('paper-dropdown-menu')
+          .forEach((input: PaperDropdownMenuElement) => {
             input.addEventListener('iron-select', () => {
               // Map directly onto the timeline on each change
-              const value = input.selectedItem.dataset.value;
-              timeline.blocks[this.index].data[input.dataset.attr] = value;
+              const selectedItem = input.selectedItem as PaperItemElement
+              const value = selectedItem.dataset['value'];
+              const attr = input.dataset['attr']!
+              timeline.blocks[this.index].data[attr] = value;
               timeline.updateTimeline();
-              timeline.genAudio(this.index,
-                  timeline.genSsml(timeline.blocks[this.index]));
+              timeline.genAudio(this.index);
             });
           });
     });

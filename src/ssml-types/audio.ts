@@ -17,7 +17,16 @@
  * @fileoverview Logic handler for <audio> tag.
  */
 
-const getSsml = (data) => {
+import {Data, SsmlType} from './ssml-type'
+
+interface AudioData extends Data {
+  src: string
+  alt: string
+  clipBegin?: number
+  clipEnd?: number
+}
+
+const getSsml = (data: AudioData) => {
   return `<audio src="${data.src}" ` +
     (data.clipBegin ? `clipBegin="${data.clipBegin}s"` : '') +
     (data.clipEnd ? `clipEnd="${data.clipEnd}s"` : '') +
@@ -25,17 +34,17 @@ const getSsml = (data) => {
 }
 
 export default {
-  getTimelineHtml: (data) => {
+  getTimelineHtml: (data: AudioData) => {
     return `<strong class="audio-description">
             <img src="./images/audio.png" />
             ${data.alt}
             </strong>`;
   },
   getSsml,
-  getOuterSsml: (data) => {
+  getOuterSsml: (data: AudioData) => {
     return getSsml(data);
   },
-  getEditor: (data) => {
+  getEditor: (data: AudioData) => {
     return {
       html: `
         <paper-input data-attr="src" always-float-label label="Audio URL"
@@ -59,4 +68,4 @@ export default {
       onOpen: () => {},
     }
   },
-}
+} as SsmlType<AudioData>

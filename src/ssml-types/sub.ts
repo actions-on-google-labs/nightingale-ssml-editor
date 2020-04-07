@@ -14,29 +14,42 @@
   limitations under the License.
 */
 /**
- * @fileoverview Logic handler for <p> tag.
+ * @fileoverview Logic handler for <sub> tag.
  */
 
-const getSsml = (data) => {
-  return `<p>${data.text}</p>`;
+import {Data, SsmlType} from './ssml-type'
+
+interface SubData extends Data {
+  alias: string
+  text: string
+}
+
+const getSsml = (data: SubData) => {
+  return `<sub alias="${data.alias}">` +
+    `${data.text}</sub>`;
 }
 
 export default {
-  getTimelineHtml: (data) => {
+  getTimelineHtml: (data: SubData) => {
     return `<span class="audio-description">
-            <img src="./images/mic.png" />
-            ${data.text}
+            <img src="./images/speech.png" />
+            ${data.alias} (${data.text})
             </span>`;
   },
   getSsml,
-  getOuterSsml: (data) => {
+  getOuterSsml: (data: SubData) => {
     return `<speak>${getSsml(data)}</speak>`;
   },
-  getEditor: (data) => {
+  getEditor: (data: SubData) => {
     return {
-      html: `<paper-input data-attr="text" always-float-label
-        label="Say something" value="${data.text}"></paper-input>`,
+      html: `
+        <paper-input data-attr="alias" always-float-label
+          label="Say something" value="${data.alias}">
+        </paper-input>
+        <paper-input data-attr="text" always-float-label
+          label="Shortened" value="${data.text}">
+        </paper-input>`,
       onOpen: () => {},
     }
   },
-}
+} as SsmlType<SubData>

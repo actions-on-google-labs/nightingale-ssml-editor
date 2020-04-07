@@ -18,20 +18,27 @@
  * modified if possible to keep changes central.
  */
 
+import { AvailableVoices } from "./";
+declare const firebase: any
+
 /**
  * In order to have proper behavior in the Nightingale client,
  * several exports _must_ be implemented.
  */
 
+
+interface Voice {
+  languageCode: string
+  name: string
+}
+
 /**
  *
  * @param {string} ssml The SSML value to be synthesized
- * @param {object} voice Voice to use for rendering
- * @param {string} voice.languageCode The language code to use
- * @param {string} voice.name The name of the voice to use
+ * @param {Voice} voice Voice to use for rendering
  * @return {Promise<string>} Promise with audio synthesis data in byte64
  */
-export const synthesize = (ssml, voice) => {
+export const synthesize = (ssml: string, voice: Voice) => {
   // eslint-disable-next-line
   const endpoint = firebase.functions().httpsCallable('synthesize');
   const audioConfig = {
@@ -50,7 +57,7 @@ export const synthesize = (ssml, voice) => {
     },
   }
   return endpoint({body: audioConfig})
-      .then((result) => result.data.audioContent)
+      .then((result: any) => result.data.audioContent)
 }
 
 /**
@@ -58,18 +65,8 @@ export const synthesize = (ssml, voice) => {
  * The locales and voices can be picked using the dropdowns in the client.
  * The locale and voice is sent to the `synthesize` endpoint to be converted
  * into audio.
- *
- * The format for each item in the Object is:
- * {
- *    [locale]: {
- *        title: '<Label to display in the dropdown>',
- *        voices: [
- *             '<Array of voices that can be used for that locale>'
- *        ]
- *    }
- * }
  */
-export const voices = {
+export const voices: AvailableVoices = {
   'en-US': {
     title: 'English (United States)',
     voices: [

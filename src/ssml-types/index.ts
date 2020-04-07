@@ -14,25 +14,30 @@
   limitations under the License.
 */
 /**
- * @fileoverview Logic handler for <break> tag.
+ * @fileoverview Main export for all supported SSML types
  */
 
-const getSsml = (data) => {
-  return `<break time="${data.time}s" />`;
-}
+import audio from './audio'
+import audioLibrary from './audio-library'
+import breakTag from './break'
+import emphasis from './emphasis'
+import p from './p'
+import prosody from './prosody'
+import sayAs from './say-as'
+import sayAsDate from './say-as-date'
+import sayAsTime from './say-as-time'
+import sub from './sub'
+import { SsmlType } from './ssml-type'
 
 export default {
-  getTimelineHtml: () => {
-    return `<span class="audio-description">Break</span>`;
-  },
-  getSsml,
-  getOuterSsml: (data) => {
-    return `<speak>${getSsml(data)}</speak>`;
-  },
-  getEditor: () => {
-    return {
-      html: ``,
-      onOpen: () => {},
-    }
-  },
-}
+  audio,
+  'audio-library': audioLibrary,
+  'break': breakTag,
+  emphasis,
+  p,
+  prosody,
+  'say-as': sayAs,
+  'say-as-date': sayAsDate,
+  'say-as-time': sayAsTime,
+  sub,
+} as {[type: string]: SsmlType<any>}

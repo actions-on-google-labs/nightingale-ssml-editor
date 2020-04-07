@@ -16,14 +16,21 @@
 /**
  * @fileoverview Logic handler for <say-as interpret-as="*"> tag.
  */
+import {Data, SsmlType} from './ssml-type'
 
-const getSsml = (data) => {
+interface SayAsData extends Data {
+  text: string
+  'interpret-as': 'cardinal' | 'ordinal' | 'characters' | 'fraction' |
+    'expletive' | 'unit' | 'verbatim'
+}
+
+const getSsml = (data: SayAsData) => {
   return `<say-as interpret-as="${data['interpret-as']}">` +
     `${data.text}</say-as>`;
 }
 
 export default {
-  getTimelineHtml: (data) => {
+  getTimelineHtml: (data: SayAsData) => {
     return `<span class="audio-description">
             <img src="./images/say.png"/>
             ${data.text}
@@ -31,10 +38,10 @@ export default {
             </span>`;
   },
   getSsml,
-  getOuterSsml: (data) => {
+  getOuterSsml: (data: SayAsData) => {
     return `<speak>${getSsml(data)}</speak>`;
   },
-  getEditor: (data) => {
+  getEditor: (data: SayAsData) => {
     return {
       html: `
         <paper-input data-attr="text" always-float-label
@@ -57,4 +64,4 @@ export default {
       onOpen: () => {},
     }
   },
-}
+} as SsmlType<SayAsData>

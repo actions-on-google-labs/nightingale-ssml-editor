@@ -35,7 +35,7 @@ ssml-timeline::part(status) {
 }
 
 
-ssml-timeline::part(blankstate) {
+ssml-timeline::part(#blankstate) {
   align-items: flex-end;
   background: url('/nightingale-ssml-editor/images/blankstate.png') center center no-repeat;
   box-sizing: border-box;
@@ -57,6 +57,10 @@ ssml-timeline::part(blankstate) {
   text-align: center;
   transition: all .3s;
   width: 600px;
+}
+
+ssml-timeline::part(#blankstate.hidden) {
+  display: none;
 }
 
 

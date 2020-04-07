@@ -29,7 +29,7 @@ module.exports = (env) => {
       compress: false,
       port: 8080,
     },
-    entry: './src/index.js',
+    entry: './dist/index.js',
     output: {
       filename: 'app.js',
       // eslint-disable-next-line

@@ -17,7 +17,16 @@
  * @fileoverview Logic handler for <audio> tag with the sound library.
  */
 
-const getSsml = (data) => {
+import {Data, SsmlType} from './ssml-type'
+
+interface LibraryData extends Data {
+  src: string
+  alt: string
+  clipBegin?: number
+  clipEnd?: number
+}
+
+const getSsml = (data: LibraryData) => {
   return `<audio src="${data.src}" ` +
     (data.clipBegin ? `clipBegin="${data.clipBegin}s"` : '') +
     (data.clipEnd ? `clipEnd="${data.clipEnd}s"` : '') +
@@ -25,17 +34,17 @@ const getSsml = (data) => {
 }
 
 export default {
-  getTimelineHtml: (data) => {
+  getTimelineHtml: (data: LibraryData) => {
     return `<strong class="audio-description">
             <img src="./images/library.png" />
             ${data.alt}
             </strong>`;
   },
   getSsml,
-  getOuterSsml: (data) => {
+  getOuterSsml: (data: LibraryData) => {
     return getSsml(data);
   },
-  getEditor: (data, soundLibrary) => {
+  getEditor: (data: LibraryData, soundLibrary) => {
     const datalistValues = soundLibrary
         .map((sound) => `<option value="${sound.sound}">\n`)
         .join('\n')
@@ -63,11 +72,12 @@ export default {
       `,
       onOpen: (thisBlock, timeline, index, soundLibrary) => {
         // Add a search listener
-        document.getElementById('block-editor-ui')
-            .querySelector('input[data-attr="alt"]')
-            .addEventListener('input', (event) => {
+        document.getElementById('block-editor-ui')!
+            .querySelector('input[data-attr="alt"]')!
+            .addEventListener('input', (event: Event) => {
               // Search sound library
-              const soundValue = event.path[0].value.toLowerCase()
+              const target = event.target as HTMLInputElement
+              const soundValue = target.value.toLowerCase()
               const sound = soundLibrary
                   .filter((s) => s.sound.toLowerCase() === soundValue)[0]
               if (!sound) return;
@@ -80,4 +90,4 @@ export default {
       },
     }
   },
-}
+} as SsmlType<LibraryData>

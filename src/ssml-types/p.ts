@@ -14,35 +14,34 @@
   limitations under the License.
 */
 /**
- * @fileoverview Logic handler for <sub> tag.
+ * @fileoverview Logic handler for <p> tag.
  */
+import {Data, SsmlType} from './ssml-type'
 
-const getSsml = (data) => {
-  return `<sub alias="${data.alias}">` +
-    `${data.text}</sub>`;
+interface PData extends Data {
+  text: string
+}
+
+const getSsml = (data: PData) => {
+  return `<p>${data.text}</p>`;
 }
 
 export default {
-  getTimelineHtml: (data) => {
+  getTimelineHtml: (data: PData) => {
     return `<span class="audio-description">
-            <img src="./images/speech.png" />
-            ${data.alias} (${data.text})
+            <img src="./images/mic.png" />
+            ${data.text}
             </span>`;
   },
   getSsml,
-  getOuterSsml: (data) => {
+  getOuterSsml: (data: PData) => {
     return `<speak>${getSsml(data)}</speak>`;
   },
-  getEditor: (data) => {
+  getEditor: (data: PData) => {
     return {
-      html: `
-        <paper-input data-attr="alias" always-float-label
-          label="Say something" value="${data.alias}">
-        </paper-input>
-        <paper-input data-attr="text" always-float-label
-          label="Shortened" value="${data.text}">
-        </paper-input>`,
+      html: `<paper-input data-attr="text" always-float-label
+        label="Say something" value="${data.text}"></paper-input>`,
       onOpen: () => {},
     }
   },
-}
+} as SsmlType<PData>

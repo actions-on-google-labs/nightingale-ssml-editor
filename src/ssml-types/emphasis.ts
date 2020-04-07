@@ -17,23 +17,30 @@
  * @fileoverview Logic handler for <emphasis> tag.
  */
 
-const getSsml = (data) => {
+import {Data, SsmlType} from './ssml-type'
+
+interface EmphasisData extends Data {
+  level: 'reduced' | 'none' | 'moderate' | 'strong'
+  text: string
+}
+
+const getSsml = (data: EmphasisData) => {
   return `<emphasis level="${data.level}">` +
     `${data.text}</emphasis>`;
 }
 
 export default {
-  getTimelineHtml: (data) => {
+  getTimelineHtml: (data: EmphasisData) => {
     return `<strong class="audio-description">
             <img src="./images/speaker.png" />
             ${data.text}
             </strong>`;
   },
   getSsml,
-  getOuterSsml: (data) => {
+  getOuterSsml: (data: EmphasisData) => {
     return `<speak>${getSsml(data)}</speak>`;
   },
-  getEditor: (data) => {
+  getEditor: (data: EmphasisData) => {
     return {
       html: `
       <paper-input data-attr="text" always-float-label
@@ -52,4 +59,4 @@ export default {
       onOpen: () => {},
     }
   },
-}
+} as SsmlType<EmphasisData>

@@ -15,16 +15,50 @@ limitations under the License.
  */
 
 // Importing modules exposes access to shadow root
-// eslint-disable-next-line
-import {paperDropdownMenu} from '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
-// eslint-disable-next-line
-import {paperDialog} from "@polymer/paper-dialog/paper-dialog.js";
-
+import '@polymer/paper-button'
+import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js'
+import '@polymer/paper-dialog/paper-dialog.js'
+import '@polymer/paper-item/paper-item'
+import '@polymer/paper-listbox'
 import './ssml-block'
 import './ssml-timeline'
-import { synthesize, voices } from '../client-config';
+
+import { PaperButtonElement } from '@polymer/paper-button';
+import { PaperDialogElement } from '@polymer/paper-dialog/paper-dialog.js';
+import { PaperDropdownMenuElement } from '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import { PaperItemElement } from '@polymer/paper-item/paper-item';
+import { PaperListboxElement } from '@polymer/paper-listbox';
+
+import SsmlBlock from './ssml-block'
+import SsmlTimeline from './ssml-timeline'
+import { voices, synthesize } from '../client-config';
 
 export default class App {
+  blocks: HTMLCollectionOf<SsmlBlock>
+  blockLibrary: HTMLElement
+  btnNews: PaperButtonElement
+  btnPlay: PaperButtonElement
+  btnSsml: PaperButtonElement
+  btnDownload: PaperButtonElement
+  btnCopy: HTMLElement
+  btnStop: HTMLElement
+  btnToolbox: HTMLElement
+  exportModal: PaperDialogElement
+  exportModalContent: HTMLElement
+  loading: HTMLElement
+  news: PaperDialogElement
+  timeline: SsmlTimeline
+  timelineContainer: HTMLElement
+  ttsLocale: PaperDropdownMenuElement
+  ttsVoices: PaperDropdownMenuElement
+  zoomIn: HTMLElement
+  zoomOut: HTMLElement
+  zoomRefresh: HTMLElement
+  trackingBlock?: {
+    dataset: DOMStringMap,
+    startX: number,
+  }
+
   constructor() {
     // BIND METHODS
     this.activateEvents = this.activateEvents.bind(this);
@@ -35,29 +69,26 @@ export default class App {
     this.updateDropdowns = this.updateDropdowns.bind(this);
 
     // REGISTER ELEMENTS
-    this.blocks = document.getElementsByClassName('ssml-block');
-    this.blockLibrary = document.getElementById('block-library');
-    this.btnNews = document.getElementById('btn-news');
-    this.btnPlay = document.getElementById('btn-play');
-    this.btnSsml = document.getElementById('btn-ssml');
-    this.btnDownload = document.getElementById('btn-download');
-    this.btnCopy = document.getElementById('btn-copy');
-    this.btnStop = document.getElementById('btn-stop');
-    this.btnToolbox = document.getElementById('btn-toolbox');
-    this.exportModal = document.getElementById('ssml');
-    this.exportModalContent = document.getElementById('ssml-gen');
-    this.loading = document.getElementById('loading');
-    this.news = document.getElementById('news');
-    this.timeline = document.querySelector('ssml-timeline');
-    this.timelineContainer = document.getElementById('timeline-container');
-    this.ttsLocale = document.getElementById('tts-locale');
-    this.ttsVoices = document.getElementById('tts-voices');
-    this.zoomIn = document.getElementById('btn-zoomi');
-    this.zoomOut = document.getElementById('btn-zoomo');
-    this.zoomRefresh = document.getElementById('btn-zoomr');
-
-    // REGISTER VARS
-    this.trackingBlock = null;
+    this.blocks = document.getElementsByClassName('ssml-block') as HTMLCollectionOf<SsmlBlock>;
+    this.blockLibrary = document.getElementById('block-library')!;
+    this.btnNews = document.getElementById('btn-news')! as PaperButtonElement;
+    this.btnPlay = document.getElementById('btn-play')! as PaperButtonElement;
+    this.btnSsml = document.getElementById('btn-ssml')! as PaperButtonElement;
+    this.btnDownload = document.getElementById('btn-download')! as PaperButtonElement;
+    this.btnCopy = document.getElementById('btn-copy')!;
+    this.btnStop = document.getElementById('btn-stop')!;
+    this.btnToolbox = document.getElementById('btn-toolbox')!;
+    this.exportModal = document.getElementById('ssml')! as PaperDialogElement;
+    this.exportModalContent = document.getElementById('ssml-gen')!;
+    this.loading = document.getElementById('loading')!;
+    this.news = document.getElementById('news')! as PaperDialogElement;
+    this.timeline = document.querySelector('ssml-timeline') as SsmlTimeline;
+    this.timelineContainer = document.getElementById('timeline-container')!;
+    this.ttsLocale = document.getElementById('tts-locale')! as PaperDropdownMenuElement;
+    this.ttsVoices = document.getElementById('tts-voices')! as PaperDropdownMenuElement;
+    this.zoomIn = document.getElementById('btn-zoomi')!;
+    this.zoomOut = document.getElementById('btn-zoomo')!;
+    this.zoomRefresh = document.getElementById('btn-zoomr')!;
 
     // ACTIVATE EVENTS
     this.activateEvents();
@@ -75,14 +106,14 @@ export default class App {
 
   populateDropdowns() {
     const locales = Object.keys(voices)
-    const localeDropdown = document.getElementById('tts-locale-lb')
+    const localeDropdown =
+      document.getElementById('tts-locale-lb') as PaperListboxElement
     localeDropdown.innerHTML = locales.map((locale) =>
       `<paper-item data-value="${locale}">
-        ${voices[locale].title}
+        ${voices[locale].title as string}
       </paper-item>`,
     ).join('')
     localeDropdown.selected = 0
-    document.getElementById('tts-voices-lb').selected = 0
   }
 
   activateEvents() {
@@ -174,19 +205,21 @@ export default class App {
       this.btnPlay.classList.remove('is-hidden');
       this.btnStop.classList.add('is-hidden');
 
-      this.timeline.stop();
+      this.timeline.stop(0);
     }
 
     // LISTEN FOR MOVING BLOCKS
     for (let i = 0; i < this.blocks.length; i++) {
-      this.blocks.item(i).ondrag = this.blockTrackStart;
-      this.blocks.item(i).ondragend = this.blockTrackEnd;
+      this.blocks.item(i)!.ondrag = this.blockTrackStart;
+      this.blocks.item(i)!.ondragend = this.blockTrackEnd;
     }
 
     // LOCALE
     this.ttsLocale.addEventListener('iron-select', () => {
-      const listBox = document.getElementById('tts-voices-lb')
-      const locale = this.ttsLocale.selectedItem.dataset.value;
+      const listBox =
+        document.getElementById('tts-voices-lb') as PaperListboxElement
+      const selectedItem = this.ttsLocale.selectedItem as PaperItemElement
+      const locale = selectedItem.dataset['value']!;
       const localeVoices = voices[locale].voices
       const html = localeVoices.map((voice) =>
         `<paper-item data-value="${voice}">${voice}</paper-item>`,
@@ -203,7 +236,8 @@ export default class App {
 
     // VOICES
     this.ttsVoices.addEventListener('iron-select', () => {
-      const voice = this.ttsVoices.selectedItem.dataset.value;
+      const selectedItem = this.ttsVoices.selectedItem as PaperItemElement
+      const voice = selectedItem.dataset['value']!;
       this.timeline.voice = voice;
 
       // REFRESH AUDIO FOR ALL BLOCKS
@@ -211,17 +245,18 @@ export default class App {
     });
   }
 
-  blockTrackStart(event) {
+  blockTrackStart(event: DragEvent) {
+    const srcElement = event.srcElement as HTMLElement
     this.trackingBlock = {
-      dataset: event.srcElement.dataset,
+      dataset: srcElement.dataset,
       startX: event.x,
     };
   }
 
-  blockTrackEnd(event) {
-    if (this.trackingBlock && this.trackingBlock !== event.x) {
+  blockTrackEnd(event: DragEvent) {
+    if (this.trackingBlock && this.trackingBlock.startX !== event.x) {
       this.timeline.addBlock(this.trackingBlock, event.x - 320, event.y);
-      this.trackingBlock = null;
+      this.trackingBlock = undefined;
     }
   }
 
@@ -248,52 +283,33 @@ export default class App {
   downloadAudio() {
     const timelineSsml = this.timeline.getSsml();
     // eslint-disable-next-line
-
     synthesize(timelineSsml, {
       languageCode: this.timeline.locale,
       name: this.timeline.voice,
     })
-        .then((result) => {
+        .then((result: string) => {
           const downloadButton = document.createElement('a');
           downloadButton.setAttribute('href',
               `data:audio/wav;base64,${result}`);
           downloadButton.setAttribute('download',
               `nightingale-${new Date().toISOString()}.wav`);
           downloadButton.click()
-        }).catch((e) => {
+        }).catch((e: Error) => {
           console.error(`Cannot create synthezied audio`, e)
         })
   }
 
   updateDropdowns() {
     // CHANGE STYLE OF DROPDOWNS THROUGH SHADOW DOM
-    this.ttsLocale.$.menuButton.shadowRoot
-        .querySelector('slot')
-        .assignedNodes()[0]
-        .querySelector('paper-input')
-        .shadowRoot
-        .querySelector('label');
+    const menuButtonPaperInput = 
+      this.ttsLocale.$['menuButton'].shadowRoot!
+          .querySelector('slot')!
+          .assignedElements()[0]
+          .querySelector('paper-input')!
 
-
-    this.ttsVoices.$.menuButton.shadowRoot
-        .querySelector('slot')
-        .assignedNodes()[0]
-        .querySelector('paper-input')
-        .shadowRoot
-        .querySelector('label');
-
-    this.ttsLocale.$.menuButton.shadowRoot
-        .querySelector('slot')
-        .assignedNodes()[0]
-        .querySelector('paper-input')
-        .shadowRoot
-        .querySelector('iron-input');
-
-    this.ttsVoices.$.menuButton.shadowRoot
-        .querySelector('slot')
-        .assignedNodes()[0]
-        .querySelector('paper-input')
-        .shadowRoot
-        .querySelector('iron-input');
+    menuButtonPaperInput.shadowRoot!.querySelector('label');
+    menuButtonPaperInput.shadowRoot!.querySelector('label');
+    menuButtonPaperInput.shadowRoot!.querySelector('iron-input');
+    menuButtonPaperInput.shadowRoot!.querySelector('iron-input');
   }
 }

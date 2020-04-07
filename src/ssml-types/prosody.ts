@@ -16,24 +16,31 @@
 /**
  * @fileoverview Logic handler for <prosody> tag.
  */
+import {Data, SsmlType} from './ssml-type'
 
-const getSsml = (data) => {
+interface ProsodyData extends Data {
+  rate: 'x-slow' | 'slow' | 'medium' | 'fast' | 'x-fast'
+  pitch: 'x-low' | 'low' | 'medium' | 'high' | 'x-high'
+  text: string
+}
+
+const getSsml = (data: ProsodyData) => {
   return `<prosody rate="${data.rate}" pitch="${data.pitch}">` +
     `${data.text}</prosody>`;
 }
 
 export default {
-  getTimelineHtml: (data) => {
+  getTimelineHtml: (data: ProsodyData) => {
     return `<span class="audio-description">
             <img src="./images/dynamic.png" />
             ${data.text}
             </span>`;
   },
   getSsml,
-  getOuterSsml: (data) => {
+  getOuterSsml: (data: ProsodyData) => {
     return `<speak>${getSsml(data)}</speak>`;
   },
-  getEditor: (data) => {
+  getEditor: (data: ProsodyData) => {
     return {
       html: `
         <paper-input data-attr="text" always-float-label
@@ -63,4 +70,4 @@ export default {
       onOpen: () => {},
     }
   },
-}
+} as SsmlType<ProsodyData>

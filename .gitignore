@@ -10,3 +10,4 @@ public/app.js
 public/js/web-animations-next-lite.min.js
 public/js/webcomponents-loader.js
 src/scss/base/_reset.scss
+dist/
