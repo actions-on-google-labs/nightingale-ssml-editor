@@ -36,7 +36,6 @@ import { voices, synthesize } from '../client-config';
 export default class App {
   blocks: HTMLCollectionOf<SsmlBlock>
   blockLibrary: HTMLElement
-  btnNews: PaperButtonElement
   btnPlay: PaperButtonElement
   btnSsml: PaperButtonElement
   btnDownload: PaperButtonElement
@@ -46,7 +45,6 @@ export default class App {
   exportModal: PaperDialogElement
   exportModalContent: HTMLElement
   loading: HTMLElement
-  news: PaperDialogElement
   timeline: SsmlTimeline
   timelineContainer: HTMLElement
   ttsLocale: PaperDropdownMenuElement
@@ -71,7 +69,6 @@ export default class App {
     // REGISTER ELEMENTS
     this.blocks = document.getElementsByClassName('ssml-block') as HTMLCollectionOf<SsmlBlock>;
     this.blockLibrary = document.getElementById('block-library')!;
-    this.btnNews = document.getElementById('btn-news')! as PaperButtonElement;
     this.btnPlay = document.getElementById('btn-play')! as PaperButtonElement;
     this.btnSsml = document.getElementById('btn-ssml')! as PaperButtonElement;
     this.btnDownload = document.getElementById('btn-download')! as PaperButtonElement;
@@ -81,7 +78,6 @@ export default class App {
     this.exportModal = document.getElementById('ssml')! as PaperDialogElement;
     this.exportModalContent = document.getElementById('ssml-gen')!;
     this.loading = document.getElementById('loading')!;
-    this.news = document.getElementById('news')! as PaperDialogElement;
     this.timeline = document.querySelector('ssml-timeline') as SsmlTimeline;
     this.timelineContainer = document.getElementById('timeline-container')!;
     this.ttsLocale = document.getElementById('tts-locale')! as PaperDropdownMenuElement;
@@ -135,11 +131,6 @@ export default class App {
     this.btnCopy.onclick = () => {
       this.copySsml();
     }
-
-    // LISTEN FOR NEWS BUTTON
-    this.btnNews.onclick = () => {
-      this.news.open();
-    };
 
     // LISTEN FOR EXPORT BUTTON
     this.btnSsml.onclick = () => {

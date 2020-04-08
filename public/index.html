@@ -99,41 +99,10 @@ limitations under the License.
           </paper-listbox>
         </paper-dropdown-menu>
 
-        <paper-button class="news-button" id="btn-news" raised>
-          <i class="material-icons">new_releases</i>
-        </paper-button>
-
         <paper-button class="export-button" id="btn-download" raised>Download Audio</paper-button>
         <paper-button class="export-button" id="btn-ssml" raised>Export SSML</paper-button>
       </app-toolbar>
     </app-header>
-
-    <!-- NEWS MODAL -->
-    <paper-dialog id="news" modal class="modal modal-news">
-      <paper-button class="modal-news-close" dialog-confirm autofocus>x</paper-button>
-
-      <h3>Release Notes</h3>
-
-      <time datetime="2018-09-26">2018-09-26</time>
-      <ul>
-        <li>Added emphasis block</li>
-        <li>Added track-level editing</li>
-        <li>Added block snapping</li>
-        <li>Added changable voice</li>
-      </ul>
-
-      <time datetime="2018-09-19">2018-09-19</time>
-      <ul>
-        <li>Added sub, prosody, and say-as blocks</li>
-        <li>Added clipping to audio blocks</li>
-        <li>Fixed audio playback glitches</li>
-      </ul>
-
-      <time datetime="2018-09-10">2018-09-10</time>
-      <ul>
-        <li>Migration to Polymer</li>
-      </ul>
-    </paper-dialog>
 
     <!-- SSML EXPORT MODAL -->
     <paper-dialog id="ssml" modal class="modal modal-export">

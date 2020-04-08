@@ -114,24 +114,6 @@ app-toolbar {
     color: $app-header-text;
   }
 
-
-
-  .news-button {
-    color: $news-button-bg;
-    box-shadow: none;
-    align-self: flex-end;
-    font-size: $unit * 4;
-    display: none;
-    padding: 0;
-    width: auto;
-    min-width: auto;
-    margin: ($unit * 3) ($unit * 2);
-
-    i {
-      font-size: $unit * 4;
-    }
-  }
-
   .export-button {
     align-self: flex-end;
     border: none;
