@@ -37,6 +37,7 @@ The project is designed as a [Polymer 3](https://polymer-library.polymer-project
 
 ### Testing
 1. Execute `npm run lint` to run lint
+2. Execute `npm run test` to run both lint and unit tests
 
 ### Production
 1. From the root directory `npm run build`

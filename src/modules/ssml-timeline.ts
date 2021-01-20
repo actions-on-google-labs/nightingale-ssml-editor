@@ -23,18 +23,7 @@ import { SsmlBlock } from './ssml-block'
 import { PaperSliderElement } from '@polymer/paper-slider';
 import { Data } from '../ssml-types/ssml-type';
 import { synthesize } from '../client-config';
-
-export interface TimelineBlock {
-  type: string
-  begin?: number
-  time: number
-  duration?: number
-  track: number
-  id: number
-  audio?: string
-  audioUpdated: number
-  data: {[key: string]: string | undefined}
-}
+import {TimelineBlock, TimelineMetadata} from '../ssml-import'
 
 interface TrackingBlock {
   dataset: DOMStringMap
@@ -81,11 +70,7 @@ export class SsmlTimeline extends PolymerElement {
   voice = 'en-US-Standard-D'
   snapPoints: number[] = [0]
   snapTracks: number[] = [-1]
-  tracksMetadata: {
-    soundLevel: number
-    fadeInDur: number
-    fadeOutDur: number
-  }[] = []
+  tracksMetadata: TimelineMetadata[] = []
   playTimers: number[] = []
 
   constructor() {

@@ -53,8 +53,9 @@ import '@polymer/paper-input/paper-input.js'
 import {PaperInputElement} from '@polymer/paper-input/paper-input.js';
 
 import { Data, SoundLibrary } from '../ssml-types/ssml-type';
-import { SsmlTimeline, TimelineBlock } from './ssml-timeline';
-import soundLibrary from '../sound-library'
+import { SsmlTimeline } from './ssml-timeline';
+import soundLibrary from '../sound-library';
+import { TimelineBlock } from '../ssml-import';
 
 /**
  * @customElement

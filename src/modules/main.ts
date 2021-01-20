@@ -32,6 +32,7 @@ import { PaperListboxElement } from '@polymer/paper-listbox';
 import { SsmlBlock } from './ssml-block'
 import { SsmlTimeline } from './ssml-timeline'
 import { voices, synthesize } from '../client-config';
+import { importSsml } from '../ssml-import'
 
 export class App {
   blocks: HTMLCollectionOf<SsmlBlock>
@@ -44,6 +45,7 @@ export class App {
   btnToolbox: HTMLElement
   exportModal: PaperDialogElement
   exportModalContent: HTMLElement
+  exportSsmlLink: HTMLAnchorElement
   loading: HTMLElement
   timeline: SsmlTimeline
   timelineContainer: HTMLElement
@@ -77,6 +79,7 @@ export class App {
     this.btnToolbox = document.getElementById('btn-toolbox')!;
     this.exportModal = document.getElementById('ssml')! as PaperDialogElement;
     this.exportModalContent = document.getElementById('ssml-gen')!;
+    this.exportSsmlLink = document.getElementById('ssml-reimport')! as HTMLAnchorElement;
     this.loading = document.getElementById('loading')!;
     this.timeline = document.querySelector('ssml-timeline') as SsmlTimeline;
     this.timelineContainer = document.getElementById('timeline-container')!;
@@ -97,6 +100,7 @@ export class App {
 
     window.addEventListener('load', () => {
       this.populateDropdowns();
+      this.optionallyImportSsml()
     })
   }
 
@@ -110,6 +114,18 @@ export class App {
       </paper-item>`,
     ).join('')
     localeDropdown.selected = 0
+  }
+
+  async optionallyImportSsml(): Promise<void> {
+    if (window.location.search) {
+      const decode = decodeURIComponent(window.location.search.substr(1));
+      const timeline = await importSsml(decode);
+      this.timeline.set('blocks', timeline.timeline);
+      this.timeline.set('tracksMetadata', timeline.metadata);
+      this.timeline.set('blockIndex', timeline.id);
+      this.timeline.resetAudio();
+      this.timeline.updateTimeline();
+    }
   }
 
   activateEvents(): void {
@@ -135,7 +151,9 @@ export class App {
     // LISTEN FOR EXPORT BUTTON
     this.btnSsml.onclick = () => {
       this.exportModal.open();
-      this.exportModalContent.innerText = this.timeline.getSsml();
+      const ssml = this.timeline.getSsml();
+      this.exportModalContent.innerText = ssml;
+      this.exportSsmlLink.href = `?${encodeURIComponent(ssml)}`
     };
 
     // LISTEN FOR ZOOM IN
