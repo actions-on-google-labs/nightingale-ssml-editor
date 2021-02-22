@@ -100,7 +100,7 @@ export class App {
     })
   }
 
-  populateDropdowns() {
+  populateDropdowns(): void {
     const locales = Object.keys(voices)
     const localeDropdown =
       document.getElementById('tts-locale-lb') as PaperListboxElement
@@ -112,7 +112,7 @@ export class App {
     localeDropdown.selected = 0
   }
 
-  activateEvents() {
+  activateEvents(): void {
     // LISTEN FOR LIBARY HANDLE
     this.btnToolbox.onclick = () => {
       if (this.blockLibrary.classList.contains('hidden')) {
@@ -236,7 +236,7 @@ export class App {
     });
   }
 
-  blockTrackStart(event: DragEvent) {
+  blockTrackStart(event: DragEvent): void {
     const srcElement = event.srcElement as HTMLElement
     this.trackingBlock = {
       dataset: srcElement.dataset,
@@ -244,14 +244,14 @@ export class App {
     };
   }
 
-  blockTrackEnd(event: DragEvent) {
+  blockTrackEnd(event: DragEvent): void {
     if (this.trackingBlock && this.trackingBlock.startX !== event.x) {
       this.timeline.addBlock(this.trackingBlock, event.x - 320, event.y);
       this.trackingBlock = undefined;
     }
   }
 
-  copySsml() {
+  copySsml(): void {
     const copyText = this.exportModalContent.textContent;
 
     // CREATE A TEXT AREA AND POPULATE WITH SSML
@@ -271,7 +271,7 @@ export class App {
     }, 25);
   }
 
-  downloadAudio() {
+  downloadAudio(): void {
     const timelineSsml = this.timeline.getSsml();
     // eslint-disable-next-line
     synthesize(timelineSsml, {
@@ -290,7 +290,7 @@ export class App {
         })
   }
 
-  updateDropdowns() {
+  updateDropdowns(): void {
     // CHANGE STYLE OF DROPDOWNS THROUGH SHADOW DOM
     const menuButtonPaperInput =
       this.ttsLocale.$['menuButton'].shadowRoot!

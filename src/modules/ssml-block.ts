@@ -73,7 +73,7 @@ export class SsmlBlock extends PolymerElement {
   blockEditorUi?: HTMLElement
   blockEditor?: PaperDialogElement
 
-  static get template() {
+  static get template(): HTMLTemplateElement {
     return html`
       <style>
         :host(.timeline-block) {
@@ -173,7 +173,7 @@ export class SsmlBlock extends PolymerElement {
     `;
   }
 
-  static get properties() {
+  static get properties(): Record<string, any> {
     return {
       data: {
         type: Object,
@@ -201,7 +201,7 @@ export class SsmlBlock extends PolymerElement {
     };
   }
 
-  ready() {
+  ready(): void {
     super.ready();
     // eslint-disable-next-line
     this.soundLibrary = soundLibrary
@@ -209,7 +209,7 @@ export class SsmlBlock extends PolymerElement {
     this.blockEditor = document.getElementById('block-editor')! as PaperDialogElement
   }
 
-  copy(block: TimelineBlock) {
+  copy(block: TimelineBlock): void {
     this.data = block.data;
     this.time = block.time;
     this.type = block.type;
@@ -219,7 +219,7 @@ export class SsmlBlock extends PolymerElement {
     this.renderHtml();
   }
 
-  getHtml() {
+  getHtml(): string {
     const html = ssmlTypes[this.type].getTimelineHtml(this.data);
 
     // ADD OPTIONS BUTTONS
@@ -237,21 +237,21 @@ export class SsmlBlock extends PolymerElement {
     return html + audioOptions;
   }
 
-  renderHtml() {
+  renderHtml(): void {
     if (this.$ && this.$['blockDiv']) {
       this.$['blockDiv'].innerHTML = this.getHtml();
     }
   }
 
-  getSsml() {
+  getSsml(): string {
     return ssmlTypes[this.type].getSsml(this.data);
   }
 
-  getWrappedSsml() {
+  getWrappedSsml(): string {
     return ssmlTypes[this.type].getOuterSsml(this.data);
   }
 
-  getAudioConfig(ssmlContent: string) {
+  getAudioConfig(ssmlContent: string): Record<string, any> {
     const content = ssmlContent || '';
 
     return {
@@ -271,15 +271,15 @@ export class SsmlBlock extends PolymerElement {
     };
   }
 
-  editBtn() {
+  editBtn(): HTMLButtonElement {
     return this.$['blockDiv'].querySelector('#btnEdit')! as HTMLButtonElement
   }
 
-  deleteBtn() {
+  deleteBtn(): HTMLElement {
     return this.$['blockDiv'].querySelector('#btnDelete')! as HTMLElement
   }
 
-  openEditor(timeline: SsmlTimeline) {
+  openEditor(timeline: SsmlTimeline): void {
     const {html, onOpen} = ssmlTypes[this.type].getEditor(this.data,
         this.soundLibrary!);
 

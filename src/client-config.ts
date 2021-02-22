@@ -38,7 +38,7 @@ interface Voice {
  * @param {Voice} voice Voice to use for rendering
  * @return {Promise<string>} Promise with audio synthesis data in byte64
  */
-export const synthesize = (ssml: string, voice: Voice) => {
+export const synthesize = async (ssml: string, voice: Voice): Promise<string> => {
   // eslint-disable-next-line
   const endpoint = firebase.functions().httpsCallable('synthesize');
   const audioConfig = {
@@ -56,8 +56,8 @@ export const synthesize = (ssml: string, voice: Voice) => {
       name: voice.name,
     },
   }
-  return endpoint({body: audioConfig})
-      .then((result: any) => result.data.audioContent)
+  const result = await endpoint({body: audioConfig})
+  return result.data.audioContent
 }
 
 /**

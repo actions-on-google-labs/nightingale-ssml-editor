@@ -106,7 +106,7 @@ export class SsmlTimeline extends PolymerElement {
     this.updateOverlappingBlocks = this.updateOverlappingBlocks.bind(this);
   }
 
-  static get template() {
+  static get template(): HTMLTemplateElement {
     return html`
       <div id='timeCursor' data-start="0" part="time-cursor"></div>
       <div id='tts'></div>
@@ -131,7 +131,7 @@ export class SsmlTimeline extends PolymerElement {
     `;
   }
 
-  addBlock(blockDataset: TrackingBlock, x: number, y: number) {
+  addBlock(blockDataset: TrackingBlock, x: number, y: number): void {
     if (blockDataset && blockDataset.dataset && blockDataset.dataset['type']) {
       const dataset = blockDataset.dataset as BlockDataset
       this.blocks[this.blockIndex] = {
@@ -166,7 +166,7 @@ export class SsmlTimeline extends PolymerElement {
     }
   }
 
-  updateTimeline() {
+  updateTimeline(): void {
     let html = '';
 
     this.snapPoints = [0];
@@ -283,7 +283,7 @@ export class SsmlTimeline extends PolymerElement {
     this.ticker();
   }
 
-  updateOverlappingBlocks() {
+  updateOverlappingBlocks(): void {
     // Check whether blocks are overlapping
     const tracks = this.blocksToTracks();
     // Identify the breaks between each block in each track
@@ -308,7 +308,7 @@ export class SsmlTimeline extends PolymerElement {
     }
   }
 
-  blocksToTracks() {
+  blocksToTracks(): TimelineBlock[][] {
     const tracks: TimelineBlock[][] = [];
     // Group every block together by track id
     Object.values(this.blocks).forEach((block) => {
@@ -334,12 +334,12 @@ export class SsmlTimeline extends PolymerElement {
     return tracks;
   }
 
-  getTrackCount() {
+  getTrackCount(): number {
     const tracks = this.blocksToTracks();
     return tracks.length;
   }
 
-  ticker() {
+  ticker(): void {
     // Populate the ticker
     let tickerHtml = '';
     const lengthPixels = this.duration * this.pixelsPerSecond
@@ -376,12 +376,12 @@ export class SsmlTimeline extends PolymerElement {
     }
   }
 
-  updateStatus(status: string) {
+  updateStatus(status: string): void {
     const statusElement = this.$['status'] as HTMLElement
     statusElement.innerText = status;
   }
 
-  blockTrackStart(event: MouseEvent) {
+  blockTrackStart(event: MouseEvent): void {
     let srcElement: SsmlBlock | undefined;
     let tracks: SsmlTimeline | undefined;
 
@@ -406,7 +406,7 @@ export class SsmlTimeline extends PolymerElement {
     }
   }
 
-  blockTrackMove(event: MouseEvent) {
+  blockTrackMove(event: MouseEvent): void {
     // Intermediary event while you're moving an item
     if (!this.trackingBlock || !this.trackingBlock.data) return;
     // Update the time for this block
@@ -440,7 +440,7 @@ export class SsmlTimeline extends PolymerElement {
     })
   }
 
-  blockTrackEnd(event: MouseEvent) {
+  blockTrackEnd(event: MouseEvent): void {
     if (!this.trackingBlock) return;
 
     if (this.trackingBlock.x === event.clientX - this.sidebarWidth ||
@@ -476,7 +476,7 @@ export class SsmlTimeline extends PolymerElement {
     this.trackingBlock = undefined;
   }
 
-  openEditor(event: MouseEvent) {
+  openEditor(event: MouseEvent): void {
     let srcElement: SsmlBlock | undefined;
     let timeline: SsmlTimeline | undefined;
 
@@ -500,7 +500,7 @@ export class SsmlTimeline extends PolymerElement {
     event.preventDefault();
   }
 
-  genSsml(block: TimelineBlock) {
+  genSsml(block: TimelineBlock): string {
     let blockElement =
       this.$['tracks'].querySelector(`#timeline-block-${block.id}`) as SsmlBlock;
     if (!blockElement) {
@@ -511,7 +511,7 @@ export class SsmlTimeline extends PolymerElement {
     return blockElement.getSsml();
   }
 
-  genWrappedSsml(block: TimelineBlock) {
+  genWrappedSsml(block: TimelineBlock): string {
     let blockElement =
       this.$['tracks'].querySelector(`#timeline-block-${block.id}`) as SsmlBlock;
     if (!blockElement) {
@@ -522,7 +522,7 @@ export class SsmlTimeline extends PolymerElement {
     return blockElement.getWrappedSsml();
   }
 
-  getSsml() {
+  getSsml(): string {
     const tracks = this.blocksToTracks();
 
     // Identify the breaks between each block in each track
@@ -623,7 +623,7 @@ export class SsmlTimeline extends PolymerElement {
     return ssml;
   }
 
-  genAudioConfig(blockId: number, ssmlContent: string) {
+  genAudioConfig(blockId: number, ssmlContent: string): Record<string, any> {
     const blockElement =
       this.$['tracks'].querySelector(`#timeline-block-${blockId}`) as SsmlBlock;
     const config = blockElement.getAudioConfig(ssmlContent);
@@ -637,14 +637,14 @@ export class SsmlTimeline extends PolymerElement {
     return config;
   }
 
-  resetAudio() {
+  resetAudio(): void {
     this.$['tracks'].querySelectorAll('.timeline-block')
         .forEach((block: SsmlBlock) => {
           this.genAudio(block.index);
         });
   }
 
-  genAudio(blockId: number) {
+  genAudio(blockId: number): void {
     // Determine when the audio was last updated
     const audioRequestSentTime = Date.now();
     const block =
@@ -665,7 +665,7 @@ export class SsmlTimeline extends PolymerElement {
         })
   }
 
-  mix() {
+  mix(): void {
     // There are no good JS mixer libraries
     // We'll do our own thing
 
@@ -703,7 +703,7 @@ export class SsmlTimeline extends PolymerElement {
     })
   }
 
-  play(cb: () => void) {
+  play(cb: () => void): void {
     // Display a cursor as we play content
     const timeCursor = this.$['timeCursor'] as HTMLElement;
     const startTime = parseFloat(timeCursor.dataset['start']!) * 1000
@@ -748,7 +748,7 @@ export class SsmlTimeline extends PolymerElement {
     setTimeout(timeCursorIterate, 0, this.pixelsPerSecond);
   }
 
-  playTime(ms: number) {
+  playTime(ms: number): string {
     const minutes = Math.floor(ms / 1000 / 60);
     ms -= minutes * 1000 * 60;
     const seconds = Math.floor(ms / 1000);
@@ -758,7 +758,7 @@ export class SsmlTimeline extends PolymerElement {
       `${ms > 99 ? ms : (ms > 9 ? `0${ms}` : `00${ms}`)}`
   }
 
-  stop(currentPos: number) {
+  stop(currentPos: number): void {
     const timeCursor = this.$['timeCursor'] as HTMLElement
     timeCursor.classList.remove('play');
     timeCursor.dataset['start'] = `${currentPos}` || '0';
@@ -786,19 +786,19 @@ export class SsmlTimeline extends PolymerElement {
     }
   }
 
-  zoomIn() {
+  zoomIn(): void {
     if (this.pixelsPerSecond <= 100) {
       this.pixelsPerSecond *= 2;
       this.updateTimeline();
     }
   }
 
-  zoomRefresh() {
+  zoomRefresh(): void {
     this.pixelsPerSecond = 100;
     this.updateTimeline();
   }
 
-  zoomOut() {
+  zoomOut(): void {
     if (this.pixelsPerSecond >= 100) {
       this.pixelsPerSecond /= 2;
       this.updateTimeline();
