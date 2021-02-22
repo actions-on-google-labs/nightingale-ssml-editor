@@ -53,14 +53,15 @@ import '@polymer/paper-input/paper-input.js'
 import {PaperInputElement} from "@polymer/paper-input/paper-input.js";
 
 import { Data, SoundLibrary } from '../ssml-types/ssml-type';
-import SsmlTimeline, { TimelineBlock } from './ssml-timeline';
+import { SsmlTimeline, TimelineBlock } from './ssml-timeline';
+import soundLibrary from '../sound-library'
 
 /**
  * @customElement
  * @polymer
  */
 
-export default class SsmlBlock extends PolymerElement {
+export class SsmlBlock extends PolymerElement {
   data: Data = {}
   time: number = 0
   type: string = 'p'
@@ -203,7 +204,7 @@ export default class SsmlBlock extends PolymerElement {
   ready() {
     super.ready();
     // eslint-disable-next-line
-    this.soundLibrary = require('../sound-library.json')
+    this.soundLibrary = soundLibrary
     this.blockEditorUi = document.getElementById('block-editor-ui')!
     this.blockEditor = document.getElementById('block-editor')! as PaperDialogElement
   }

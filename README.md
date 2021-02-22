@@ -33,6 +33,7 @@ The project is designed as a [Polymer 3](https://polymer-library.polymer-project
 1. From the root directory `npm start`
 2. This will run webpack and launch [http://localhost:8080/](http://localhost:8080/)
 3. Sass and JS changes are live reloaded
+4. Run `npm run build` or `yarn build` to recompile the Typescript changes.
 
 ### Production
 1. From the root directory `npm run build`

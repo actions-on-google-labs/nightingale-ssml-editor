@@ -34,6 +34,8 @@ module.exports = (env) => {
       filename: 'app.js',
       // eslint-disable-next-line
       path: path.resolve(__dirname, 'public'),
+      libraryTarget: 'var',
+      library: 'Nightingale',
     },
     module: {
       rules: [{

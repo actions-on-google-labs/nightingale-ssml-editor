@@ -7,7 +7,7 @@
     "deploy": "firebase deploy --only functions",
     "start": "npm run cp-3p && webpack-dev-server --open && webpack --mode development --env.development --config webpack.config.js",
     "build": "npm run cp-3p && npm run build:src && npm run build:web",
-    "build:src": "tsc && cp -r src/scss ./dist && cp src/sound-library.json ./dist",
+    "build:src": "tsc && cp -r src/scss ./dist",
     "build:web": "webpack --mode production --env.production --config webpack.config.js",
     "cp-3p": "cp third_party/scss/*.scss src/scss/base/ && mkdir -p public/js/ && cp third_party/js/*.js public/js/",
     "lint": "eslint ./src"

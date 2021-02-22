@@ -29,11 +29,11 @@ import { PaperDropdownMenuElement } from '@polymer/paper-dropdown-menu/paper-dro
 import { PaperItemElement } from '@polymer/paper-item/paper-item';
 import { PaperListboxElement } from '@polymer/paper-listbox';
 
-import SsmlBlock from './ssml-block'
-import SsmlTimeline from './ssml-timeline'
+import { SsmlBlock } from './ssml-block'
+import { SsmlTimeline } from './ssml-timeline'
 import { voices, synthesize } from '../client-config';
 
-export default class App {
+export class App {
   blocks: HTMLCollectionOf<SsmlBlock>
   blockLibrary: HTMLElement
   btnPlay: PaperButtonElement

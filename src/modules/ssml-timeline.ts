@@ -19,7 +19,7 @@ import '@polymer/paper-slider'
 
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { PaperButtonElement } from '@polymer/paper-button';
-import SsmlBlock from './ssml-block'
+import { SsmlBlock } from './ssml-block'
 import { PaperSliderElement } from '@polymer/paper-slider';
 import { Data } from '../ssml-types/ssml-type';
 import { synthesize } from '../client-config';
@@ -61,7 +61,7 @@ interface BlockDataset extends DOMStringMap {
  * @customElement
  * @polymer
  */
-export default class SsmlTimeline extends PolymerElement {
+export class SsmlTimeline extends PolymerElement {
   blockIndex: number
   sidebarWidth: number
   btnPlay: PaperButtonElement
