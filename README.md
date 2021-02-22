@@ -35,6 +35,9 @@ The project is designed as a [Polymer 3](https://polymer-library.polymer-project
 3. Sass and JS changes are live reloaded
 4. Run `npm run build` or `yarn build` to recompile the Typescript changes.
 
+### Testing
+1. Execute `npm run lint` to run lint
+
 ### Production
 1. From the root directory `npm run build`
 

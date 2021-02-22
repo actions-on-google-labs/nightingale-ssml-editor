@@ -10,7 +10,8 @@
     "build:src": "tsc && cp -r src/scss ./dist",
     "build:web": "webpack --mode production --env.production --config webpack.config.js",
     "cp-3p": "cp third_party/scss/*.scss src/scss/base/ && mkdir -p public/js/ && cp third_party/js/*.js public/js/",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src --ext .ts",
+    "test": "npm run lint"
   },
   "dependencies": {
     "@polymer/app-layout": "^3.1.0",
@@ -33,9 +34,11 @@
     "web-animations-js": "^2.3.1"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "css-loader": "^2.1.1",
-    "eslint": "^6.7.2",
+    "eslint": "^7.20.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-polymer": "^0.4.0",
     "node-sass": "^4.13.1",
@@ -43,7 +46,7 @@
     "polymer-webpack-loader": "^2.0.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "typescript": "^3.8.3",
+    "typescript": "^4.1.5",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"

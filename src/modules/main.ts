@@ -292,7 +292,7 @@ export class App {
 
   updateDropdowns() {
     // CHANGE STYLE OF DROPDOWNS THROUGH SHADOW DOM
-    const menuButtonPaperInput = 
+    const menuButtonPaperInput =
       this.ttsLocale.$['menuButton'].shadowRoot!
           .querySelector('slot')!
           .assignedElements()[0]

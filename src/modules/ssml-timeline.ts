@@ -67,8 +67,8 @@ export class SsmlTimeline extends PolymerElement {
   btnPlay: PaperButtonElement
   btnStop: PaperButtonElement
   blocks: TimelineBlock[] = []
-  duration: number = 0
-  pixelsPerSecond: number = 100
+  duration = 0
+  pixelsPerSecond = 100
   trackingBlock?: {
     data: Data
     index: number
@@ -76,9 +76,9 @@ export class SsmlTimeline extends PolymerElement {
     x: number
     trackX: number
   }
-  trackHeight: number = 152
-  locale: string = 'en-US'
-  voice: string = 'en-US-Standard-D'
+  trackHeight = 152
+  locale = 'en-US'
+  voice = 'en-US-Standard-D'
   snapPoints: number[] = [0]
   snapTracks: number[] = [-1]
   tracksMetadata: {
@@ -196,19 +196,19 @@ export class SsmlTimeline extends PolymerElement {
     this.updateOverlappingBlocks();
 
     this.$['tracks'].querySelectorAll('.timeline-block')
-      .forEach((block: SsmlBlock) => {
-        block.copy(this.blocks[block.index]);
-        block.oncontextmenu = this.openEditor;
-        block.onmousedown = this.blockTrackStart;
-        block.editBtn().onclick = this.openEditor;
+        .forEach((block: SsmlBlock) => {
+          block.copy(this.blocks[block.index]);
+          block.oncontextmenu = this.openEditor;
+          block.onmousedown = this.blockTrackStart;
+          block.editBtn().onclick = this.openEditor;
 
-        block.deleteBtn().onclick = (event: MouseEvent) => {
-          const target = event.target! as SsmlBlock
-          const index = target.dataset['index']!
-          delete this.blocks[parseInt(index)];
-          this.updateTimeline();
-        }
-    });
+          block.deleteBtn().onclick = (event: MouseEvent) => {
+            const target = event.target! as SsmlBlock
+            const index = target.dataset['index']!
+            delete this.blocks[parseInt(index)];
+            this.updateTimeline();
+          }
+        });
 
     this.onmousemove = this.blockTrackMove;
     this.onmouseup = this.blockTrackEnd;
@@ -262,19 +262,19 @@ export class SsmlTimeline extends PolymerElement {
       trackContainer.querySelector(`#track-soundlevel-${i}`)!
           .addEventListener('value-change', () => {
             const soundLevelElement = trackContainer
-              .querySelector(`#track-soundlevel-${i}`)! as PaperSliderElement
+                .querySelector(`#track-soundlevel-${i}`)! as PaperSliderElement
             this.tracksMetadata[i].soundLevel = soundLevelElement.value!;
           });
       trackContainer.querySelector(`#track-fadein-${i}`)!
           .addEventListener('value-change', () => {
             const fadeInElement = trackContainer
-              .querySelector(`#track-fadein-${i}`)! as PaperSliderElement
+                .querySelector(`#track-fadein-${i}`)! as PaperSliderElement
             this.tracksMetadata[i].fadeInDur = fadeInElement.value!;
           });
       trackContainer.querySelector(`#track-fadeout-${i}`)!
           .addEventListener('value-change', () => {
             const fadeOutElement = trackContainer
-              .querySelector(`#track-fadeout-${i}`)! as PaperSliderElement
+                .querySelector(`#track-fadeout-${i}`)! as PaperSliderElement
             this.tracksMetadata[i].fadeOutDur = fadeOutElement.value!;
           });
     }
@@ -433,7 +433,7 @@ export class SsmlTimeline extends PolymerElement {
 
     window.requestAnimationFrame(() => {
       const block = this.$['tracks']
-        .querySelector(`#timeline-block-${blockId}`)! as HTMLElement
+          .querySelector(`#timeline-block-${blockId}`)! as HTMLElement
       block.style.marginLeft = `${posX}px`;
       const top = 64 + Math.floor(posY / this.trackHeight) * this.trackHeight
       block.style.marginTop = `${top}px`;
@@ -564,17 +564,17 @@ export class SsmlTimeline extends PolymerElement {
       }
 
       const soundLevelElement = this.$['trackJawn']
-        .querySelector(`#track-soundlevel-${i}`)! as PaperSliderElement
+          .querySelector(`#track-soundlevel-${i}`)! as PaperSliderElement
       const soundLevel = soundLevelElement.value!;
       const soundLevelString =
         (soundLevel >= 0) ? `+${soundLevel}dB` : `${soundLevel}dB`;
 
       const fadeInElement = this.$['trackJawn']
-        .querySelector(`#track-fadein-${i}`) as PaperSliderElement
+          .querySelector(`#track-fadein-${i}`) as PaperSliderElement
       const fadeInDur = fadeInElement.value;
 
       const fadeOutElement = this.$['trackJawn']
-        .querySelector(`#track-fadeout-${i}`) as PaperSliderElement
+          .querySelector(`#track-fadeout-${i}`) as PaperSliderElement
       const fadeOutDur = fadeOutElement.value;
       let ssml = `\t<media xml:id="track-${i}"` +
           `${startTimeStr ? ` begin="${startTimeStr}"`: ''}` +
@@ -639,9 +639,9 @@ export class SsmlTimeline extends PolymerElement {
 
   resetAudio() {
     this.$['tracks'].querySelectorAll('.timeline-block')
-      .forEach((block: SsmlBlock) => {
-        this.genAudio(block.index);
-    });
+        .forEach((block: SsmlBlock) => {
+          this.genAudio(block.index);
+        });
   }
 
   genAudio(blockId: number) {
@@ -690,7 +690,7 @@ export class SsmlTimeline extends PolymerElement {
             parseFloat(audio.dataset['start']!) + audio.duration)
         // Update the length of that audio block
         const block = this.$['tracks']
-          .querySelector(`#timeline-block-${blockId}`) as HTMLElement;
+            .querySelector(`#timeline-block-${blockId}`) as HTMLElement;
         block.style.width = `${audio.duration * this.pixelsPerSecond}px`;
         this.ticker();
 

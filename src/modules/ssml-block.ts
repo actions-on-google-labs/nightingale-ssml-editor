@@ -33,7 +33,7 @@ import '@polymer/paper-menu-button/paper-menu-button.js';
 import '@polymer/paper-listbox/paper-listbox.js';
 // eslint-disable-next-line
 import '@polymer/paper-item/paper-item.js'
-import {PaperItemElement} from "@polymer/paper-item/paper-item.js";
+import {PaperItemElement} from '@polymer/paper-item/paper-item.js';
 // eslint-disable-next-line
 import '@polymer/paper-item/paper-item-body.js';
 // eslint-disable-next-line
@@ -42,7 +42,7 @@ import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-toast/paper-toast.js';
 // eslint-disable-next-line
 import '@polymer/paper-dialog/paper-dialog.js'
-import {PaperDialogElement} from "@polymer/paper-dialog/paper-dialog.js";
+import {PaperDialogElement} from '@polymer/paper-dialog/paper-dialog.js';
 // eslint-disable-next-line
 import '@polymer/paper-toolbar/paper-toolbar.js';
 // eslint-disable-next-line
@@ -50,7 +50,7 @@ import '@polymer/paper-icon-button/paper-icon-button.js';
 // eslint-disable-next-line
 import '@polymer/paper-slider/paper-slider.js';
 import '@polymer/paper-input/paper-input.js'
-import {PaperInputElement} from "@polymer/paper-input/paper-input.js";
+import {PaperInputElement} from '@polymer/paper-input/paper-input.js';
 
 import { Data, SoundLibrary } from '../ssml-types/ssml-type';
 import { SsmlTimeline, TimelineBlock } from './ssml-timeline';
@@ -63,11 +63,11 @@ import soundLibrary from '../sound-library'
 
 export class SsmlBlock extends PolymerElement {
   data: Data = {}
-  time: number = 0
-  type: string = 'p'
-  track: number = 0
-  index: number = 0
-  audioUpdated: number = 0
+  time = 0
+  type = 'p'
+  track = 0
+  index = 0
+  audioUpdated = 0
   // https://developers.google.com/actions/tools/sound-library/
   soundLibrary?: SoundLibrary
   blockEditorUi?: HTMLElement

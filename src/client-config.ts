@@ -18,7 +18,7 @@
  * modified if possible to keep changes central.
  */
 
-import { AvailableVoices } from "./";
+import { AvailableVoices } from './';
 declare const firebase: any
 
 /**
