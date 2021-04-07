@@ -90,81 +90,19 @@ limitations under the License.
         </custom-style>
 
         <paper-dropdown-menu class="custom" id="tts-locale" label="Locale">
-          <paper-listbox slot="dropdown-content" class="dropdown-content" selected="0">
-            <paper-item data-value="en-US">English (United States)</paper-item>
-            <paper-item data-value="en-GB">English (Great Britain)</paper-item>
-            <paper-item data-value="en-AU">English (Australia)</paper-item>
-            <paper-item data-value="nl-NL">Dutch (Netherlands)</paper-item>
-            <paper-item data-value="fr-FR">French (France)</paper-item>
-            <paper-item data-value="fr-CA">French (Canada)</paper-item>
-            <paper-item data-value="da-DK">Dansk (Denmark)</paper-item>
-            <paper-item data-value="de-DE">German</paper-item>
-            <paper-item data-value="it-IT">Italian</paper-item>
-            <paper-item data-value="ja-JP">Japanese</paper-item>
-            <paper-item data-value="ko-KR">Korean</paper-item>
-            <paper-item data-value="nb-no">Norweigan</paper-item>
-            <paper-item data-value="pl-PL">Polish</paper-item>
-            <paper-item data-value="pt-BR">Portugese (Brazil)</paper-item>
-            <paper-item data-value="pt-PT">Portugese (Portugal)</paper-item>
-            <paper-item data-value="ru-RU">Russian</paper-item>
-            <paper-item data-value="es-ES">Spanish</paper-item>
-            <paper-item data-value="sk-SK">Slovak</paper-item>
-            <paper-item data-value="sv-SE">Swedish</paper-item>
-            <paper-item data-value="tr-TR">Turkish</paper-item>
-            <paper-item data-value="uk-UA">Ukranian</paper-item>
+          <paper-listbox id="tts-locale-lb" slot="dropdown-content" class="dropdown-content">
           </paper-listbox>
         </paper-dropdown-menu>
 
         <paper-dropdown-menu class="custom" id="tts-voices" label="Voice">
-          <paper-listbox slot="dropdown-content" class="dropdown-content" selected="3">
-            <paper-item data-value="en-US-Wavenet-A">en-US-Wavenet-A</paper-item>
-            <paper-item data-value="en-US-Wavenet-B">en-US-Wavenet-B</paper-item>
-            <paper-item data-value="en-US-Wavenet-C">en-US-Wavenet-C</paper-item>
-            <paper-item data-value="en-US-Wavenet-D">en-US-Wavenet-D</paper-item>
-            <paper-item data-value="en-US-Wavenet-E">en-US-Wavenet-E</paper-item>
-            <paper-item data-value="en-US-Wavenet-F">en-US-Wavenet-F</paper-item>
-            <paper-item data-value="en-US-Standard-B">en-US-Standard-B</paper-item>
-            <paper-item data-value="en-US-Standard-C">en-US-Standard-C</paper-item>
-            <paper-item data-value="en-US-Standard-D">en-US-Standard-D</paper-item>
-            <paper-item data-value="en-US-Standard-E">en-US-Standard-E</paper-item>
+          <paper-listbox id="tts-voices-lb" slot="dropdown-content" class="dropdown-content">
           </paper-listbox>
         </paper-dropdown-menu>
-
-        <paper-button class="news-button" id="btn-news" raised>
-          <i class="material-icons">new_releases</i>
-        </paper-button>
 
         <paper-button class="export-button" id="btn-download" raised>Download Audio</paper-button>
         <paper-button class="export-button" id="btn-ssml" raised>Export SSML</paper-button>
       </app-toolbar>
     </app-header>
-
-    <!-- NEWS MODAL -->
-    <paper-dialog id="news" modal class="modal modal-news">
-      <paper-button class="modal-news-close" dialog-confirm autofocus>x</paper-button>
-
-      <h3>Release Notes</h3>
-
-      <time datetime="2018-09-26">2018-09-26</time>
-      <ul>
-        <li>Added emphasis block</li>
-        <li>Added track-level editing</li>
-        <li>Added block snapping</li>
-        <li>Added changable voice</li>
-      </ul>
-
-      <time datetime="2018-09-19">2018-09-19</time>
-      <ul>
-        <li>Added sub, prosody, and say-as blocks</li>
-        <li>Added clipping to audio blocks</li>
-        <li>Fixed audio playback glitches</li>
-      </ul>
-
-      <time datetime="2018-09-10">2018-09-10</time>
-      <ul>
-        <li>Migration to Polymer</li>
-      </ul>
-    </paper-dialog>
 
     <!-- SSML EXPORT MODAL -->
     <paper-dialog id="ssml" modal class="modal modal-export">
@@ -173,6 +111,9 @@ limitations under the License.
         <paper-button dialog-confirm autofocus>Close</paper-button>
       </div>
       <pre id="ssml-gen"></pre>
+      <span>
+        <a href="#" id="ssml-reimport">Save this link to import</a>
+      </span>
     </paper-dialog>
 
     <!-- CLIP EDITOR MODAL -->
@@ -247,5 +188,20 @@ limitations under the License.
         </div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        new Nightingale.App();
+        // Init Firebase
+        const firebaseConfig = {
+          apiKey: 'AIzaSyCxLwHelYYu6_4FCmxEiwGB3DJHem6-vsk',
+          authDomain: 'nightingale-73361.firebaseapp.com',
+          projectId: 'nightingale-73361',
+          appId: '1:856168060350:web:1ab0fa39c3f6b9e4ddd5ef',
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      });
+    </script>
   </body>
 </html>
