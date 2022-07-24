@@ -522,16 +522,13 @@ export class SsmlTimeline extends PolymerElement {
       const track = tracks[i];
       if (!track) continue;
       trackStarts[i] = track[0].time; // Get first block time as start
-      for (let j = 0; j < track.length - 1; j++) {
+      for (let j = 0; j < track.length; j++) {
         if (track[j].type == 'break') continue;
         // Clear any previous track data
-        tracks[i][j+1].begin = undefined
-        const gapStart = track[j + 1].time;
+        tracks[i][j].begin = undefined
         const block = track[j];
-        const begin = (gapStart - block.time - block.duration!)
-        if (block.time + block.duration! < gapStart) {
-          tracks[i][j+1].begin = begin
-        }
+        const begin = block.time
+        tracks[i][j].begin = begin
       }
     }
 
