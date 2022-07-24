@@ -32,7 +32,7 @@ const getSsml = (data: EmphasisData) => {
 export default {
   getTimelineHtml: (data: EmphasisData) => {
     return `<strong class="audio-description">
-            <img src="./images/speaker.png" />
+            <i class="material-icons">volume_up</i>
             ${data.text}
             </strong>`;
   },

@@ -77,6 +77,28 @@ export class SsmlBlock extends PolymerElement {
   static get template(): HTMLTemplateElement {
     return html`
       <style>
+      .audio-description .material-icons {
+          color: #1A73E8;
+          top: 6px;
+          position: relative;
+          left: 3px;
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
         :host(.timeline-block) {
           color: #3268D6;
         }

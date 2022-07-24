@@ -29,7 +29,7 @@ const getSsml = (data: PData) => {
 export default {
   getTimelineHtml: (data: PData) => {
     return `<span class="audio-description">
-            <img src="./images/mic.png" />
+          <i class="material-icons">mic</i>
             ${data.text}
             </span>`;
   },
