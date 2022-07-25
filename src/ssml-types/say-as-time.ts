@@ -32,7 +32,7 @@ const getSsml = (data: TimeData) => {
 export default {
   getTimelineHtml: (data: TimeData) => {
     return `<span class="audio-description">
-            <i class="material-icons">schedule</i>
+            <img src="./images/time.png" />
             ${data.text}
             </span>`;
   },

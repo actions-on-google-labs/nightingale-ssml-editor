@@ -32,7 +32,7 @@ const getSsml = (data: SubData) => {
 export default {
   getTimelineHtml: (data: SubData) => {
     return `<span class="audio-description">
-            <i class="material-icons">radio</i>
+            <img src="./images/speech.png" />
             ${data.alias} (${data.text})
             </span>`;
   },

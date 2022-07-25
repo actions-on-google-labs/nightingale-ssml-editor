@@ -32,7 +32,7 @@ const getSsml = (data: ProsodyData) => {
 export default {
   getTimelineHtml: (data: ProsodyData) => {
     return `<span class="audio-description">
-            <i class="material-icons">settings_voice</i>
+            <img src="./images/dynamic.png" />
             ${data.text}
             </span>`;
   },

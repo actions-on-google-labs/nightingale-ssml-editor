@@ -36,7 +36,7 @@ const getSsml = (data: AudioData) => {
 export default {
   getTimelineHtml: (data: AudioData) => {
     return `<strong class="audio-description">
-            <i class="material-icons">music_video</i>
+            <img src="./images/audio.png" />
             ${data.alt}
             </strong>`;
   },
