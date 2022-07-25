@@ -339,12 +339,12 @@ export class SsmlTimeline extends PolymerElement {
     for (let i = 0; i < max; i += 50) {
       // Put something every 50 pixels
       tickerHtml += '<div part=\'ticker-tick\' class=\'ticker-tick\'>';
-      if(i == 0){
+      if (i === 0) {
         tickerHtml += `0s`;
-      }else{
+      } else {
         if (i % this.pixelsPerSecond === 0) {
           // Perfect second
-          if((i / this.pixelsPerSecond) - 0.5 > 0){
+          if ((i / this.pixelsPerSecond) - 0.5 > 0) {
             tickerHtml += `${(i / this.pixelsPerSecond) - 0.5}s`;
           }
         } else {
