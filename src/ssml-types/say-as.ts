@@ -32,7 +32,7 @@ const getSsml = (data: SayAsData) => {
 export default {
   getTimelineHtml: (data: SayAsData) => {
     return `<span class="audio-description">
-            <img src="./images/say.png"/>
+            <i class="material-icons">record_voice_over</i>
             ${data.text}
             (say as ${data['interpret-as']})
             </span>`;

@@ -34,7 +34,7 @@ const getSsml = (data: DateData) => {
 export default {
   getTimelineHtml: (data: DateData) => {
     return `<span class="audio-description">
-            <img src="./images/date.png"/>
+            <i class="material-icons">today</i>
             ${data.text}
             </span>`;
   },
