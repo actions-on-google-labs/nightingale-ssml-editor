@@ -336,14 +336,20 @@ export class SsmlTimeline extends PolymerElement {
     tracks.style.width = `${max}px`;
 
 
-    for (let i = 0; i < max; i += 40) {
-      // Put something every 40 pixels
-      tickerHtml += '<div part=\'ticker-tick\' class=\'ticker-tick\'>'
-      if (i % this.pixelsPerSecond === 0) {
-        // Perfect second
-        tickerHtml += `${i / this.pixelsPerSecond}s`;
+    for (let i = 0; i < max; i += 50) {
+      // Put something every 50 pixels
+      tickerHtml += '<div part=\'ticker-tick\' class=\'ticker-tick\'>';
+      if (i === 0) {
+        tickerHtml += `0s`;
       } else {
-        tickerHtml += `|`
+        if (i % this.pixelsPerSecond === 0) {
+          // Perfect second
+          if ((i / this.pixelsPerSecond) - 0.5 > 0) {
+            tickerHtml += `${(i / this.pixelsPerSecond) - 0.5}s`;
+          }
+        } else {
+          tickerHtml += `|`
+        }
       }
       tickerHtml += '</div>';
     }
@@ -516,16 +522,13 @@ export class SsmlTimeline extends PolymerElement {
       const track = tracks[i];
       if (!track) continue;
       trackStarts[i] = track[0].time; // Get first block time as start
-      for (let j = 0; j < track.length - 1; j++) {
+      for (let j = 0; j < track.length; j++) {
         if (track[j].type == 'break') continue;
         // Clear any previous track data
-        tracks[i][j+1].begin = undefined
-        const gapStart = track[j + 1].time;
+        tracks[i][j].begin = undefined
         const block = track[j];
-        const begin = (gapStart - block.time - block.duration!)
-        if (block.time + block.duration! < gapStart) {
-          tracks[i][j+1].begin = begin
-        }
+        const begin = block.time
+        tracks[i][j].begin = begin
       }
     }
 
